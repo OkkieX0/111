@@ -15,16 +15,21 @@ body {
   color: #f1eff5;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   height: 100vh;
+  width: 100vw;
   overflow: hidden;
 }
 
+/* Flexbox base ensures clean grid containment across layout screens */
 .game-layout {
-  display: grid;
-  grid-template-columns: 32% 43% 25%;
+  display: flex;
+  flex-direction: row;
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
+/* Standardized responsive layout container configurations */
 .panel {
   box-sizing: border-box;
   height: 100%;
@@ -33,24 +38,37 @@ body {
   background-color: var(--panel-bg);
   border-right: 2px solid var(--panel-border);
   position: relative;
+  min-width: 0; /* Important: keeps column inner content from bursting outer bounds */
 }
 
-.right-panel {
-  border-right: none;
-  background-color: #0b0710;
-}
-
-/* LEFT PANEL */
+/* LEFT PANEL: Responsive scaling allocation */
 .left-panel {
+  flex: 1 1 30%;
+  min-width: 280px;
   background: radial-gradient(circle at center, #1b0e2b 0%, #07030a 100%);
   text-align: center;
   justify-content: space-between;
   padding: 24px 0 0 0;
 }
 
+/* MIDDLE PANEL: Responsive scaling allocation */
+.middle-panel {
+  flex: 1.5 1 45%;
+  min-width: 300px;
+  background-color: #0f0a17;
+}
+
+/* RIGHT PANEL: Locked store dimensions */
+.right-panel {
+  flex: 0 0 320px;
+  width: 320px;
+  border-right: none;
+  background-color: #0b0710;
+}
+
 .cookie-bakery-heading h2 {
   margin: 0;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 900;
   letter-spacing: 2px;
   background: linear-gradient(45deg, var(--neon-cyan), #a855f7);
@@ -69,7 +87,7 @@ body {
 
 .counter-section {
   background: linear-gradient(90deg, transparent, rgba(0,0,0,0.5), transparent);
-  padding: 16px 0;
+  padding: 12px 0;
   width: 100%;
   backdrop-filter: blur(4px);
   border-top: 1px solid var(--panel-border);
@@ -77,7 +95,7 @@ body {
 }
 
 .clicks {
-  font-size: 2.4rem;
+  font-size: 2rem;
   font-weight: 800;
   margin: 0;
   color: var(--neon-gold);
@@ -86,7 +104,7 @@ body {
 
 .stats-per-sec {
   margin: 6px 0 0 0;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   color: #9f96b0;
 }
 
@@ -102,8 +120,8 @@ body {
 
 .candy-container {
   position: relative;
-  width: 240px;
-  height: 240px;
+  width: 180px;
+  height: 180px;
   cursor: pointer;
   user-select: none;
   transition: transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -173,7 +191,7 @@ body {
 .milk-container {
   position: relative;
   width: 100%;
-  height: 60px;
+  height: 50px;
   overflow: hidden;
 }
 
@@ -206,10 +224,6 @@ body {
 }
 
 /* MIDDLE PANEL */
-.middle-panel {
-  background-color: #0f0a17;
-}
-
 .news-ticker {
   background-color: rgba(0, 0, 0, 0.4);
   padding: 12px 20px;
@@ -288,6 +302,7 @@ body {
   padding: 12px;
   gap: 10px;
   overflow-y: auto;
+  flex-grow: 1; /* Makes the list take up available space safely */
 }
 
 .store-item {
@@ -301,6 +316,7 @@ body {
   cursor: pointer;
   transition: all 0.2s ease;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .store-item:hover:not(:disabled) {
@@ -328,6 +344,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0; /* Prevents emojis from turning flat */
 }
 
 .item-info {
@@ -356,6 +373,7 @@ body {
   background-color: rgba(0,0,0,0.2);
   padding: 4px 10px;
   border-radius: 20px;
+  flex-shrink: 0;
 }
 
 .store-item:hover:not(:disabled) .item-benefit {
