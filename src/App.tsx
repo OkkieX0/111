@@ -6,6 +6,17 @@ import JB_licked2 from './assets/JB stg.3.png';
 import JB_licked3 from './assets/JB stg.4.png';
 import JB_licked4 from './assets/JB stg.5.png';
 import JB_licked5 from './assets/JB Stg.6.png';
+import JB_licked6 from './assets/JB stg.7.png';
+import JB_licked7 from './assets/JB stg.8.png';
+import JB_licked8 from './assets/JB stg.9.png';
+import JB_licked9 from './assets/JB stg.10.png';
+import JB_licked10 from './assets/JB stg.11.png';
+import JB_licked11 from './assets/JB stg.12.png';
+import JB_licked12 from './assets/JB stg.13.png';
+import JB_licked13 from './assets/JB stg.14.png';
+import JB_licked14 from './assets/JB stg.15.png';
+import JB_licked15 from './assets/JB stg.16.png';
+import JB_licked16 from './assets/JB stg.17.png';
 
 type UpgradeType = 'tongue' | 'scraper' | 'saliva';
 
