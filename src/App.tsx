@@ -6,7 +6,7 @@ import JB_licked2 from "./assets/JB stg.3.png";
 import JB_licked3 from "./assets/JB stg.4.png";
 import JB_licked4 from "./assets/JB stg.5.png";
 import JB_licked5 from "./assets/JB Stg.6.png";
-import acid_ring from "./assets/JB Stg.6.png"; // Change file pointer here if a distinct image asset file is available
+import acid_ring from "./assets/JB1.png"; 
 
 type UpgradeType = "tongue" | "scraper" | "saliva";
 
@@ -20,7 +20,6 @@ function App() {
   const [hasAcidRing, setHasAcidRing] = useState<boolean>(false);
   const [costs, setCosts] = useState({ tongue: 10, scraper: 50, saliva: 100 });
 
-  // Passive Auto-click engine loop running in background
   useEffect(() => {
     if (autoLicksPerSecond === 0) return;
     
@@ -33,11 +32,11 @@ function App() {
   }, [autoLicksPerSecond]);
 
   const getJawbreakerImage = () => {
-    if (totalLicks >= 1000000) return JB_licked5;
-    if (totalLicks >= 100000) return JB_licked4;
-    if (totalLicks >= 10000) return JB_licked3;
-    if (totalLicks >= 1000) return JB_licked2;
-    if (totalLicks >= 1000) return JB_licked1; // Fixed step bounds check
+    if (totalLicks >= 1001) return  JB_licked5;
+    if (totalLicks >= 1000) return JB_licked4;
+    if (totalLicks >= 100) return JB_licked3 ;
+    if (totalLicks >= 10) return JB_licked2;
+    if (totalLicks >= 1) return JB_licked1;
     return JB1;
   };
 
@@ -75,7 +74,6 @@ function App() {
       <h1>Jawbreaker Clicker</h1>
       
       <div className="game-body">
-        {/* Upper Visual & Gameplay Component Layer */}
         <div className="jbm">
           <div className="licks">Licks: {count}</div>
           
@@ -97,8 +95,6 @@ function App() {
             )}
           </div>
         </div>
-
-        {/* Lower Shop Control Upgrades Panel */}
         <div className="upgrades">
           <h2>Shop Menu</h2>
           
