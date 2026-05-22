@@ -121,12 +121,23 @@ function App() {
             className={`candy-container ${isLicking ? 'animate-lick' : ''}`}
             onClick={handleMainClick}
           >
-            <img src={JB_licked5} className="candy-layer layer-5" alt="core" />
-            <img src={JB_licked4} className={`candy-layer layer-4 ${totalLicks >= 15 ? 'dissolved' : ''}`} alt="stage 5" />
-            <img src={JB_licked3} className={`candy-layer layer-3 ${totalLicks >= 12 ? 'dissolved' : ''}`} alt="stage 4" />
-            <img src={JB_licked2} className={`candy-layer layer-2 ${totalLicks >= 9 ? 'dissolved' : ''}`} alt="stage 3" />
-            <img src={JB_licked1} className={`candy-layer layer-1 ${totalLicks >= 6 ? 'dissolved' : ''}`} alt="stage 2" />
-            <img src={JB1} className={`candy-layer layer-0 ${totalLicks >= 3 ? 'dissolved' : ''}`} alt="fresh jawbreaker" />
+            <img src={JB_licked16} className="candy-layer layer-5" alt="core" />
+            <img src={JB_licked15} className={`candy-layer layer-3 ${totalLicks >= 150 ? 'dissolved' : ''}`} alt="stage 15" />
+            <img src={JB_licked14} className={`candy-layer layer-2 ${totalLicks >= 140 ? 'dissolved' : ''}`} alt="stage 14" />
+            <img src={JB_licked13} className={`candy-layer layer-1 ${totalLicks >= 130 ? 'dissolved' : ''}`} alt="stage 13" />
+            <img src={JB_licked12} className={`candy-layer layer-4 ${totalLicks >= 120 ? 'dissolved' : ''}`} alt="stage 12" />
+            <img src={JB_licked11} className={`candy-layer layer-4 ${totalLicks >= 110 ? 'dissolved' : ''}`} alt="stage 11" />
+            <img src={JB_licked10} className={`candy-layer layer-4 ${totalLicks >= 100 ? 'dissolved' : ''}`} alt="stage 10" />
+            <img src={JB_licked9} className={`candy-layer layer-3 ${totalLicks >= 90 ? 'dissolved' : ''}`} alt="stage 9" />
+            <img src={JB_licked8} className={`candy-layer layer-2 ${totalLicks >= 80 ? 'dissolved' : ''}`} alt="stage 8" />
+            <img src={JB_licked7} className={`candy-layer layer-1 ${totalLicks >= 70 ? 'dissolved' : ''}`} alt="stage 7" />
+            <img src={JB_licked6} className={`candy-layer layer-4 ${totalLicks >= 60 ? 'dissolved' : ''}`} alt="stage 6" />
+            <img src={JB_licked5} className={`candy-layer layer-4 ${totalLicks >= 50 ? 'dissolved' : ''}`} alt="stage 5" />
+            <img src={JB_licked4} className={`candy-layer layer-4 ${totalLicks >= 40 ? 'dissolved' : ''}`} alt="stage 5" />
+            <img src={JB_licked3} className={`candy-layer layer-3 ${totalLicks >= 30 ? 'dissolved' : ''}`} alt="stage 4" />
+            <img src={JB_licked2} className={`candy-layer layer-2 ${totalLicks >= 20 ? 'dissolved' : ''}`} alt="stage 3" />
+            <img src={JB_licked1} className={`candy-layer layer-1 ${totalLicks >= 10 ? 'dissolved' : ''}`} alt="stage 2" />
+            <img src={JB1} className={`candy-layer layer-0 ${totalLicks >= 0 ? 'dissolved' : ''}`} alt="fresh jawbreaker" />
             
             {ripples.map((r) => (
               <span 
