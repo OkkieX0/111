@@ -137,7 +137,7 @@ function App() {
             <img src={JB_licked3} className={`candy-layer layer-3 ${totalLicks >= 30 ? 'dissolved' : ''}`} alt="stage 4" />
             <img src={JB_licked2} className={`candy-layer layer-2 ${totalLicks >= 20 ? 'dissolved' : ''}`} alt="stage 3" />
             <img src={JB_licked1} className={`candy-layer layer-1 ${totalLicks >= 10 ? 'dissolved' : ''}`} alt="stage 2" />
-            <img src={JB1} className={`candy-layer layer-0 ${totalLicks >= 0 ? 'dissolved' : ''}`} alt="fresh jawbreaker" />
+            <img src={JB1} className={`candy-layer layer-0 ${totalLicks >= 1 ? 'dissolved' : ''}`} alt="fresh jawbreaker" />
             
             {ripples.map((r) => (
               <span 
