@@ -31,18 +31,14 @@ function App() {
     return () => clearInterval(interval);
   }, [autoLicksPerSecond]);
 
-  const getJawbreakerImages = () => {
-    const allImages = [JB1, JB_licked1, JB_licked2, JB_licked3, JB_licked4, JB_licked5];
-  
-    if (totalLicks >= 13) return allImages.slice(0, 6);
-    if (totalLicks >= 12) return allImages.slice(0, 5);
-    if (totalLicks >= 11) return allImages.slice(0, 4);
-    if (totalLicks >= 10) return allImages.slice(0, 3);
-    if (totalLicks >= 1) return allImages.slice(0, 2);
-    
-    return allImages.slice(0, 1);
+  const getJawbreakerImage = () => {
+    if (totalLicks >= 1001) return  JB_licked5;
+    if (totalLicks >= 1000) return JB_licked4;
+    if (totalLicks >= 100) return JB_licked3 ;
+    if (totalLicks >= 10) return JB_licked2;
+    if (totalLicks >= 1) return JB_licked1;
+    return JB1;
   };
-  
 
   const handleMainClick = () => {
     setCount((prev) => prev + licksPerClick);
