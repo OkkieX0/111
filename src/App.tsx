@@ -31,9 +31,9 @@ function App() {
 
   // Helper to determine if an image layer should be visible
   const isImageActive = (stage: number) => {
-    if (stage === 6) return totalLicks >= 1001;
-    if (stage === 5) return totalLicks >= 1000;
-    if (stage === 4) return totalLicks >= 100;
+    if (stage === 6) return totalLicks >= 13;
+    if (stage === 5) return totalLicks >= 12;
+    if (stage === 4) return totalLicks >= 11;
     if (stage === 3) return totalLicks >= 10;
     if (stage === 2) return totalLicks >= 1;
     return totalLicks === 0; // JB1 (stage 1)
