@@ -81,7 +81,7 @@ h1 {
 
 /* Individual layers are hidden by default and fade in smoothly */
 .candy {
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.25s ease-in-out;
   pointer-events: none; /* Prevents layout layer blocking clicks */
 }
