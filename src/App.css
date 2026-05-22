@@ -59,14 +59,6 @@ h1 {
   cursor: pointer;
   user-select: none;
   margin: 0 auto;
-  transition: transform 0.05s ease; /* Transitions the entire container scale on click */
-}
-
-/* Wrapper to isolate the jawbreaker stage images */
-.jb-stack {
-  position: relative;
-  width: 100%;
-  height: 100%;
 }
 
 /* Base image + ring layer configurations */
@@ -79,25 +71,19 @@ h1 {
   object-fit: contain;
 }
 
-/* Individual layers are hidden by default and fade in smoothly */
 .candy {
-  opacity: 1;
-  transition: opacity 0.25s ease-in-out;
-  pointer-events: none; /* Prevents layout layer blocking clicks */
-}
-
-/* Triggers when totalLicks cross into a stage threshold */
-.candy.active {
-  opacity: 1;
+  z-index: 1;
+  transition: transform 0.05s ease;
 }
 
 .acid-ring {
-  z-index: 10;
-  pointer-events: none; 
+  z-index: 2;
+  pointer-events: none; /* Allows clicks to click through to candy element */
   animation: pulse-glow 2s infinite ease-in-out;
 }
 
-.jb-container.animate-lick {
+/* Clicking Animation */
+.jb-container.animate-lick .candy {
   transform: scale(0.92);
 }
 
@@ -107,6 +93,7 @@ h1 {
   100% { transform: scale(1); opacity: 0.8; }
 }
 
+/* UPGRADES: The lower shop panel */
 .upgrades {
   display: flex;
   flex-direction: column;
