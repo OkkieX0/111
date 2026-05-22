@@ -6,7 +6,6 @@ import JB_licked2 from './assets/JB stg.3.png';
 import JB_licked3 from './assets/JB stg.4.png';
 import JB_licked4 from './assets/JB stg.5.png';
 import JB_licked5 from './assets/JB Stg.6.png';
-import acid_ring from './assets/JB1.png'; // Or your acid ring image
 
 type UpgradeType = 'tongue' | 'scraper' | 'saliva';
 
@@ -84,7 +83,7 @@ function App() {
             className={`jb-container ${isLicking ? 'animate-lick' : ''}`} 
             onClick={handleMainClick}
           >
-            {/* Render and overlap all images, opacity determines visibility */}
+          
             <div className="jb-stack">
               {jawbreakerStages.map((stage, index) => (
                 <img
@@ -97,9 +96,7 @@ function App() {
               ))}
             </div>
 
-            {hasAcidRing && (
-              <img src={acid_ring} alt="Acid Ring Aura" className="acid-ring" />
-            )}
+        
           </div>
         </div>
 
