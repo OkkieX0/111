@@ -32,10 +32,10 @@ function App() {
   }, [autoLicksPerSecond]);
 
   const getJawbreakerImage = () => {
-    if (totalLicks >= 1000000) return JB_licked5;
-    if (totalLicks >= 100000) return JB_licked4;
-    if (totalLicks >= 10000) return JB_licked3;
-    if (totalLicks >= 1000) return JB_licked2;
+    if (totalLicks >= 1000000) return JB_licked5, JB_licked4, JB_licked3, JB_licked2, JB_licked1;
+    if (totalLicks >= 100000) return JB_licked4, JB_licked3, JB_licked2, JB_licked1;
+    if (totalLicks >= 10000) return JB_licked3, JB_licked2, JB_licked1;
+    if (totalLicks >= 1000) return JB_licked2, JB_licked1;
     if (totalLicks >= 100) return JB_licked1;
     return JB1;
   };
