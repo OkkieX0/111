@@ -1,35 +1,29 @@
-/* --- PLAYFUL DESIGN TOKENS --- */
 :root {
-  --bg-dark: #090514;
-  --panel-bg: #140d24;
-  --panel-border: rgba(255, 255, 255, 0.08);
+  --bg-dark: #07040d;
+  --panel-bg: #110a1c;
+  --panel-border: rgba(255, 255, 255, 0.06);
   --neon-cyan: #00f0ff;
-  --neon-pink: #ff0077;
+  --neon-pink: #ff0066;
   --neon-gold: #ffcc00;
-  --neon-green: #2ecc71;
-  --glass-bg: rgba(255, 255, 255, 0.04);
-  --glass-hover: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-hover: rgba(255, 255, 255, 0.08);
 }
 
 body {
   margin: 0;
-  padding: 0;
   background-color: var(--bg-dark);
   color: #f1eff5;
-  font-family: 'Quicksand', system-ui, -apple-system, sans-serif;
+  font-family: 'Quicksand', system-ui, sans-serif;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
   user-select: none;
 }
 
-/* --- FULL GAME GRID --- */
 .game-layout {
   display: flex;
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
-  box-sizing: border-box;
 }
 
 .panel {
@@ -42,11 +36,11 @@ body {
   min-width: 0;
 }
 
-/* --- LEFT PANEL: THE MAIN JAWBREAKER --- */
+/* --- LEFT COLUMN PANEL --- */
 .left-panel {
   flex: 1 1 35%;
-  min-width: 290px;
-  background: radial-gradient(circle at center, #24123a 0%, #090514 100%);
+  min-width: 300px;
+  background: radial-gradient(circle at center, #1b0e2b 0%, #06030a 100%);
   text-align: center;
   justify-content: space-between;
   padding: 24px 0 0 0;
@@ -56,39 +50,35 @@ body {
   margin: 0;
   font-size: 1.8rem;
   font-weight: 900;
-  letter-spacing: 1px;
   background: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 10px rgba(0, 240, 255, 0.4));
+  filter: drop-shadow(0 2px 8px rgba(0, 240, 255, 0.4));
 }
 
 .subheading {
   margin: 4px 0 0 0;
-  font-size: 0.9rem;
-  color: #a29ba3;
+  font-size: 0.85rem;
+  color: #8c839c;
 }
 
 .counter-section {
   background: linear-gradient(90deg, transparent, rgba(0,0,0,0.4), transparent);
-  padding: 16px 0;
-  width: 100%;
-  border-top: 1px solid var(--panel-border);
-  border-bottom: 1px solid var(--panel-border);
+  padding: 14px 0;
 }
 
 .licks {
-  font-size: 2.5rem;
+  font-size: 2.6rem;
   font-weight: 900;
   margin: 0;
   color: var(--neon-gold);
-  filter: drop-shadow(0 0 12px rgba(255, 204, 0, 0.5));
+  text-shadow: 0 0 12px rgba(255, 204, 0, 0.4);
 }
 
 .stats-per-sec {
   margin: 4px 0 0 0;
-  font-size: 1rem;
-  color: #bfaec4;
+  font-size: 0.95rem;
+  color: #a89eb8;
 }
 
 .neon-cyan {
@@ -96,7 +86,6 @@ body {
   text-shadow: 0 0 8px var(--neon-cyan);
 }
 
-/* --- CANDY ENGINE & VISUAL EFFECTS --- */
 .candy-wrapper {
   flex-grow: 1;
   display: flex;
@@ -104,16 +93,21 @@ body {
   align-items: center;
 }
 
+.bottom-spacing {
+  height: 30px;
+}
+
+/* --- THE CELESTIAL COOKIE CLICKER JAWBREAKER --- */
 .candy-container {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 210px;
+  height: 210px;
   cursor: pointer;
-  transition: transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.08s ease-out;
 }
 
 .candy-container:hover {
-  transform: scale(1.06) rotate(2deg);
+  transform: scale(1.05) rotate(2deg);
 }
 
 .candy-container:active, .animate-lick {
@@ -128,16 +122,16 @@ body {
   height: 100%;
   object-fit: contain;
   pointer-events: none;
-  filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.6));
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  filter: drop-shadow(0px 10px 18px rgba(0,0,0,0.6));
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .candy-layer.dissolved {
   opacity: 0;
-  transform: scale(0.5) rotate(-90deg);
+  transform: scale(0.4) rotate(-80deg);
 }
 
-/* Juice Ripple Wave Ring */
+/* --- POPPING JUICE VFX --- */
 .click-ripple {
   position: absolute;
   border: 4px solid var(--neon-cyan);
@@ -146,75 +140,39 @@ body {
   width: 10px;
   height: 10px;
   transform: translate(-50%, -50%);
-  animation: wave-expand 0.4s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+  animation: explode 0.38s ease-out forwards;
 }
 
-@keyframes wave-expand {
-  0% { width: 0; height: 0; opacity: 1; box-shadow: 0 0 0px var(--neon-cyan); }
-  100% { width: 140px; height: 140px; opacity: 0; box-shadow: 0 0 20px var(--neon-pink); }
+@keyframes explode {
+  0% { width: 0; height: 0; opacity: 1; }
+  100% { width: 140px; height: 140px; opacity: 0; box-shadow: 0 0 15px var(--neon-pink); }
 }
 
-/* Floating Click Text Upward */
 .floating-text {
   position: absolute;
-  color: #ffffff;
+  color: #fff;
   font-weight: 900;
-  font-size: 2rem;
-  text-shadow: 0 0 6px #000, 0 0 10px var(--neon-pink);
+  font-size: 2.1rem;
+  text-shadow: 0 2px 4px #000, 0 0 10px var(--neon-pink);
   pointer-events: none;
-  animation: floatUp 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+  animation: popUp 0.45s ease-out forwards;
 }
 
-@keyframes floatUp {
-  0% { transform: translate(-50%, -50%) translateY(0) scale(0.5); opacity: 0; }
-  30% { opacity: 1; scale: 1.3; }
-  100% { transform: translate(-50%, -50%) translateY(-90px) scale(0.9); opacity: 0; }
+@keyframes popUp {
+  0% { transform: translate(-50%, -50%) translateY(0) scale(0.6); opacity: 0; }
+  25% { opacity: 1; scale: 1.2; }
+  100% { transform: translate(-50%, -50%) translateY(-80px) scale(0.8); opacity: 0; }
 }
 
-/* Juice Liquid Waves Floor */
-.milk-container {
-  position: relative;
-  width: 100%;
-  height: 40px;
-  overflow: hidden;
-}
-
-.milk-wave {
-  position: absolute;
-  bottom: -10px;
-  width: 200%;
-  height: 100%;
-  border-radius: 42%;
-}
-
-.wave-back {
-  left: 0;
-  background: linear-gradient(180deg, rgba(255, 0, 119, 0.15) 0%, transparent 100%);
-  border-top: 2px solid rgba(255, 0, 119, 0.3);
-  animation: wave-ambient 10s linear infinite;
-}
-
-.wave-front {
-  left: -50%;
-  background: linear-gradient(180deg, rgba(0, 240, 255, 0.12) 0%, transparent 100%);
-  border-top: 2px solid rgba(0, 240, 255, 0.3);
-  animation: wave-ambient 6s linear infinite reverse;
-}
-
-@keyframes wave-ambient {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* --- MIDDLE PANEL: FEED & LAB CODES --- */
+/* --- MIDDLE COLUMN INFO --- */
 .middle-panel {
   flex: 1.5 1 40%;
   min-width: 280px;
-  background-color: #100a1c;
+  background-color: #0d0817;
 }
 
 .news-ticker {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.25);
   padding: 14px 20px;
   border-bottom: 2px solid var(--panel-border);
 }
@@ -230,7 +188,7 @@ body {
 .news-text {
   margin: 4px 0 0 0;
   font-size: 0.95rem;
-  color: #e2daeb;
+  color: #dcd6e3;
 }
 
 .stats-content {
@@ -239,11 +197,10 @@ body {
 
 .stats-content h3 {
   margin-top: 0;
-  font-size: 1.1rem;
-  letter-spacing: 1px;
-  color: #a29ba3;
+  font-size: 1rem;
+  color: #928a9c;
   border-bottom: 2px solid var(--panel-border);
-  padding-bottom: 8px;
+  padding-bottom: 6px;
 }
 
 .stats-card {
@@ -251,15 +208,14 @@ body {
   border: 1px solid var(--panel-border);
   padding: 16px;
   border-radius: 16px;
-  backdrop-filter: blur(4px);
 }
 
 .stats-card p {
-  font-size: 1.05rem;
+  font-size: 1rem;
   margin: 12px 0;
   display: flex;
   justify-content: space-between;
-  color: #dcd3e4;
+  color: #cfc6d6;
 }
 
 .neon-value {
@@ -267,16 +223,15 @@ body {
   color: #fff;
 }
 
-/* --- RIGHT PANEL: MUTATION STORE --- */
+/* --- SHOP PANEL RECONSTRUCTION --- */
 .right-panel {
-  flex: 0 0 330px;
-  width: 330px;
+  flex: 0 0 340px;
+  width: 340px;
   border-right: none;
-  background-color: #0d0818;
+  background-color: #0b0614;
 }
 
 .store-header {
-  background-color: rgba(0, 0, 0, 0.2);
   padding: 20px;
   text-align: center;
   border-bottom: 2px solid var(--panel-border);
@@ -284,66 +239,57 @@ body {
 
 .store-header h3 {
   margin: 0;
-  font-size: 1.2rem;
-  font-weight: 900;
+  font-size: 1.1rem;
   letter-spacing: 2px;
   color: var(--neon-cyan);
-  text-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
 }
 
 .upgrades-list {
   display: flex;
   flex-direction: column;
-  padding: 16px;
-  gap: 12px;
+  padding: 12px;
+  gap: 10px;
   overflow-y: auto;
   flex-grow: 1;
 }
 
-/* Interactive Shop Items Buttons */
 .store-item {
   display: flex;
   align-items: center;
   background: var(--glass-bg);
   border: 2px solid var(--panel-border);
-  padding: 12px;
-  border-radius: 16px;
+  padding: 10px;
+  border-radius: 14px;
   color: white;
   cursor: pointer;
   font-family: inherit;
-  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-sizing: border-box;
+  transition: all 0.15s ease;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .store-item:hover:not(:disabled) {
   background: var(--glass-hover);
   border-color: var(--neon-cyan);
-  box-shadow: 0 4px 15px rgba(0, 240, 255, 0.25);
-  transform: translateY(-2px) scale(1.02);
-}
-
-.store-item:active:not(:disabled) {
-  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 4px 12px rgba(0, 240, 255, 0.2);
+  transform: translateY(-1px);
 }
 
 .store-item:disabled {
-  opacity: 0.3;
+  opacity: 0.25;
   cursor: not-allowed;
-  filter: grayscale(80%);
 }
 
 .item-icon {
-  font-size: 2rem;
-  margin-right: 12px;
-  background-color: rgba(0, 0, 0, 0.3);
-  width: 48px;
-  height: 48px;
+  font-size: 1.8rem;
+  background-color: rgba(0,0,0,0.2);
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
-  flex-shrink: 0;
+  border-radius: 10px;
+  margin-right: 12px;
 }
 
 .item-info {
@@ -355,30 +301,33 @@ body {
 
 .item-name {
   font-weight: 700;
-  font-size: 1.05rem;
-  color: #fff;
+  font-size: 1rem;
 }
 
 .item-cost {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--neon-gold);
   font-weight: 700;
-  margin-top: 2px;
+}
+
+.item-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.item-owned {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--neon-cyan);
+  opacity: 0.8;
 }
 
 .item-benefit {
-  font-size: 0.85rem;
-  font-weight: 800;
-  color: #a29ba3;
-  background-color: rgba(0, 0, 0, 0.25);
-  padding: 6px 10px;
-  border-radius: 20px;
-  flex-shrink: 0;
-  border: 1px solid transparent;
-}
-
-.store-item:hover:not(:disabled) .item-benefit {
-  color: var(--neon-green);
-  border-color: rgba(46, 204, 113, 0.2);
-  background-color: rgba(46, 204, 113, 0.1);
+  font-size: 0.75rem;
+  color: #a69cb3;
+  background-color: rgba(0,0,0,0.3);
+  padding: 2px 8px;
+  border-radius: 8px;
 }
