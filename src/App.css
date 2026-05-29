@@ -145,8 +145,8 @@ body {
 /* --- THE TOON JAWBREAKER --- */
 .candy-container {
   position: relative;
-  width: 55vh;
-  height: 55vh;
+  width: 75vh;
+  height: 75vh;
   max-width: 650px;
   max-height: 650px;
   cursor: pointer;
