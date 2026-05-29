@@ -100,8 +100,8 @@ body {
 /* --- THE CELESTIAL COOKIE CLICKER JAWBREAKER --- */
 .candy-container {
   position: relative;
-  width: 630px;
-  height: 630px;
+  width: 900px;
+  height: 900px;
   cursor: pointer;
   transition: transform 0.08s ease-out;
 }
