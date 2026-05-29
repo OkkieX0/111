@@ -19,7 +19,7 @@ import JB_licked13 from './assets/JB stg.14.png';
 import JB_licked14 from './assets/JB stg.15.png';
 import JB_licked15 from './assets/JB stg.16.png';
 import JB_licked16 from './assets/JB stg.17.png';
-import advertisment from './assets/TOYOTA.png';
+
 const STAGES = [
   JB1, JB_licked1, JB_licked2, JB_licked3, JB_licked4, JB_licked5,
   JB_licked6, JB_licked7, JB_licked8, JB_licked9, JB_licked10, JB_licked11,
