@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
-import './App.css';
+import { useState, useEffect, useMemo } from 'react';
+
+// --- IMAGE IMPORTS ---
 import JB1 from './assets/JB1.png';
 import JB_licked1 from './assets/JB stg.2.png';
 import JB_licked2 from './assets/JB stg.3.png';
@@ -18,224 +19,162 @@ import JB_licked14 from './assets/JB stg.15.png';
 import JB_licked15 from './assets/JB stg.16.png';
 import JB_licked16 from './assets/JB stg.17.png';
 
+// Array mapping your jawbreaker evolution stages smoothly
+const JAWBREAKER_STAGES = [
+  JB1, JB_licked1, JB_licked2, JB_licked3, JB_licked4, JB_licked5, 
+  JB_licked6, JB_licked7, JB_licked8, JB_licked9, JB_licked10, 
+  JB_licked11, JB_licked12, JB_licked13, JB_licked14, JB_licked15, JB_licked16
+];
+
 type UpgradeType = 'tongue' | 'scraper' | 'saliva';
 
-interface FloatingText {
+interface ClickEffect {
   id: number;
+  x: number;
+  y: number;
   text: string;
-  x: number;
-  y: number;
 }
 
-interface VisualRipple {
-  id: number;
-  x: number;
-  y: number;
-}
-
-function App() {
-  const [count, setCount] = useState<number>(0);
-  const [totalLicks, setTotalLicks] = useState<number>(0);
-  const [licksPerClick, setLicksPerClick] = useState<number>(1);
-  const [acidSalivaMulti, setAcidSalivaMulti] = useState<number>(1);
-  const [autoLicksPerSecond, setAutoLicksPerSecond] = useState<number>(0);
-  const [isLicking, setIsLicking] = useState<boolean>(false);
-  const [floatingTexts, setFloatingTexts] = useState<FloatingText[]>([]);
-  const [ripples, setRipples] = useState<VisualRipple[]>([]);
+export default function App() {
+  // --- STATE ---
+  const [licks, setLicks] = useState(0);
+  const [lifetimeLicks, setLifetimeLicks] = useState(0);
+  const [clickPower, setClickPower] = useState(1);
+  const [autoLicks, setAutoLicks] = useState(0);
+  const [acidMulti, setAcidMulti] = useState(1.0);
   
-  const [costs, setCosts] = useState({ 
-    tongue: 10, 
-    scraper: 50, 
-    saliva: 100 
-  });
+  const [isLicking, setIsLicking] = useState(false);
+  const [clickEffects, setClickEffects] = useState<ClickEffect[]>([]);
+  const [costs, setCosts] = useState({ tongue: 10, scraper: 50, saliva: 100 });
 
+  // --- AUTOMATION ---
   useEffect(() => {
-    if (autoLicksPerSecond > 0) {
-      const timer = setInterval(() => {
-        setCount((prev) => prev + autoLicksPerSecond);
-        setTotalLicks((prev) => prev + autoLicksPerSecond);
-      }, 1000);
-      return () => clearInterval(timer);
-    }
-  }, [autoLicksPerSecond]);
+    if (autoLicks <= 0) return;
+    const interval = setInterval(() => {
+      setLicks(prev => prev + autoLicks);
+      setLifetimeLicks(prev => prev + autoLicks);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [autoLicks]);
 
-  const handleMainClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    setCount((prev) => prev + licksPerClick);
-    setTotalLicks((prev) => prev + licksPerClick);
+  // --- CORE LOGIC ---
+  const handleLick = (e: React.MouseEvent<HTMLDivElement>) => {
+    setLicks(prev => prev + clickPower);
+    setLifetimeLicks(prev => prev + clickPower);
     setIsLicking(true);
-    
+    setTimeout(() => setIsLicking(false), 80);
+
+    // Capture precise coordinates for click tracking
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
-    const timestamp = Date.now() + Math.random();
-    
-    setFloatingTexts((prev) => [...prev, { id: timestamp, text: `+${licksPerClick}`, x, y }]);
-    setRipples((prev) => [...prev, { id: timestamp, x, y }]);
-    
-    setTimeout(() => setIsLicking(false), 100);
+    const id = Date.now() + Math.random();
+
+    setClickEffects(prev => [...prev, { id, x, y, text: `+${clickPower}` }]);
   };
 
-  const removeFloatingText = (id: number) => {
-    setFloatingTexts((prev) => prev.filter(t => t.id !== id));
-  };
-
-  const removeRipple = (id: number) => {
-    setRipples((prev) => prev.filter(r => r.id !== id));
+  const cleanEffect = (id: number) => {
+    setClickEffects(prev => prev.filter(eff => eff.id !== id));
   };
 
   const buyUpgrade = (type: UpgradeType) => {
     const cost = costs[type];
-    if (count >= cost) {
-      setCount((prev) => prev - cost);
-      
-      if (type === 'tongue') {
-        setLicksPerClick((prev) => prev + 1);
-      } else if (type === 'scraper') {
-        setLicksPerClick((prev) => prev + 5);
-      } else if (type === 'saliva') {
-        setAutoLicksPerSecond((prev) => prev + Math.floor(10 * acidSalivaMulti));
-        setAcidSalivaMulti((prev) => prev + 0.5);
-      }
-      
-      setCosts(prev => ({ ...prev, [type]: Math.floor(prev[type] * 1.5) }));
+    if (licks < cost) return;
+
+    setLicks(prev => prev - cost);
+    setCosts(prev => ({ ...prev, [type]: Math.floor(prev[type] * 1.5) }));
+
+    if (type === 'tongue') setClickPower(prev => prev + 1);
+    if (type === 'scraper') setClickPower(prev => prev + 5);
+    if (type === 'saliva') {
+      setAutoLicks(prev => prev + Math.floor(10 * acidMulti));
+      setAcidMulti(prev => prev + 0.5);
     }
   };
 
+  // --- DERIVED MEMOIZED VALUES ---
+  const currentImage = useMemo(() => {
+    const stageIndex = Math.floor(lifetimeLicks / 10);
+    return JAWBREAKER_STAGES[Math.min(stageIndex, JAWBREAKER_STAGES.length - 1)];
+  }, [lifetimeLicks]);
+
+  const liveTicker = useMemo(() => {
+    if (lifetimeLicks < 5) return '🔬 Subject experimental wrapper peeled open clean.';
+    if (lifetimeLicks < 12) return '⚠️ Dental advisory status raised to critical level red.';
+    return '🌌 Outer core compromised! Center crystals emerging!';
+  }, [lifetimeLicks]);
+
   return (
-    <div className="game-layout">
-      {/* LEFT COLUMN */}
-      <div className="panel left-panel">
-        <div className="cookie-bakery-heading">
-          <h2>THE CANDY LAB</h2>
-          <p className="subheading">dissolving sweet boundaries...</p>
-        </div>
-        
-        <div className="counter-section">
-          <p className="licks">{Math.floor(count).toLocaleString()} Licks</p>
-          <p className="stats-per-sec">per second: <span className="neon-cyan">{autoLicksPerSecond}</span></p>
+    <div className="lab-container">
+      {/* LEFT SECTION: CENTRAL CORE */}
+      <div className="lab-core">
+        <header>
+          <h1>THE CANDY LAB</h1>
+          <p className="ticker">{liveTicker}</p>
+        </header>
+
+        <div className={`jawbreaker ${isLicking ? 'active' : ''}`} onClick={handleLick}>
+          <img src={currentImage} alt="Jawbreaker Core" className="candy-sprite" />
+          
+          {clickEffects.map(eff => (
+            <div key={eff.id} className="effect-wrapper" style={{ left: eff.x, top: eff.y }} onAnimationEnd={() => cleanEffect(eff.id)}>
+              <span className="ripple" />
+              <span className="floating-num">{eff.text}</span>
+            </div>
+          ))}
         </div>
 
-        <div className="candy-wrapper">
-          <div 
-            className={`candy-container ${isLicking ? 'animate-lick' : ''}`}
-            onClick={handleMainClick}
-          >
-            <img src={JB_licked16} className="candy-layer layer-5" alt="core" />
-            <img src={JB_licked15} className={`candy-layer layer-3 ${totalLicks >= 150 ? 'dissolved' : ''}`} alt="stage 15" />
-            <img src={JB_licked14} className={`candy-layer layer-2 ${totalLicks >= 140 ? 'dissolved' : ''}`} alt="stage 14" />
-            <img src={JB_licked13} className={`candy-layer layer-1 ${totalLicks >= 130 ? 'dissolved' : ''}`} alt="stage 13" />
-            <img src={JB_licked12} className={`candy-layer layer-4 ${totalLicks >= 120 ? 'dissolved' : ''}`} alt="stage 12" />
-            <img src={JB_licked11} className={`candy-layer layer-4 ${totalLicks >= 110 ? 'dissolved' : ''}`} alt="stage 11" />
-            <img src={JB_licked10} className={`candy-layer layer-4 ${totalLicks >= 100 ? 'dissolved' : ''}`} alt="stage 10" />
-            <img src={JB_licked9} className={`candy-layer layer-3 ${totalLicks >= 90 ? 'dissolved' : ''}`} alt="stage 9" />
-            <img src={JB_licked8} className={`candy-layer layer-2 ${totalLicks >= 80 ? 'dissolved' : ''}`} alt="stage 8" />
-            <img src={JB_licked7} className={`candy-layer layer-1 ${totalLicks >= 70 ? 'dissolved' : ''}`} alt="stage 7" />
-            <img src={JB_licked6} className={`candy-layer layer-4 ${totalLicks >= 60 ? 'dissolved' : ''}`} alt="stage 6" />
-            <img src={JB_licked5} className={`candy-layer layer-4 ${totalLicks >= 50 ? 'dissolved' : ''}`} alt="stage 5" />
-            <img src={JB_licked4} className={`candy-layer layer-4 ${totalLicks >= 40 ? 'dissolved' : ''}`} alt="stage 5" />
-            <img src={JB_licked3} className={`candy-layer layer-3 ${totalLicks >= 30 ? 'dissolved' : ''}`} alt="stage 4" />
-            <img src={JB_licked2} className={`candy-layer layer-2 ${totalLicks >= 20 ? 'dissolved' : ''}`} alt="stage 3" />
-            <img src={JB_licked1} className={`candy-layer layer-1 ${totalLicks >= 10 ? 'dissolved' : ''}`} alt="stage 2" />
-            <img src={JB1} className={`candy-layer layer-0 ${totalLicks >= 1 ? 'dissolved' : ''}`} alt="fresh jawbreaker" />
-            
-            {ripples.map((r) => (
-              <span 
-                key={r.id}
-                className="click-ripple"
-                style={{ left: r.x, top: r.y }}
-                onAnimationEnd={() => removeRipple(r.id)}
-              />
-            ))}
-
-            {floatingTexts.map((t) => (
-              <span 
-                key={t.id} 
-                className="floating-text"
-                style={{ left: t.x, top: t.y }}
-                onAnimationEnd={() => removeFloatingText(t.id)}
-              >
-                {t.text}
-              </span>
-            ))}
+        <div className="dashboard">
+          <div className="stat-node">
+            <span className="label">CURRENT POOL</span>
+            <span className="value text-cyan">{Math.floor(licks).toLocaleString()} Licks</span>
           </div>
-        </div>
-        
-        <div className="milk-container">
-          <div className="milk-wave wave-back"></div>
-          <div className="milk-wave wave-front"></div>
-        </div>
-      </div>
-
-      {/* MIDDLE COLUMN */}
-      <div className="panel middle-panel">
-        <div className="news-ticker">
-          <p className="news-title">🔴 Live Labs Ticker</p>
-          <p className="news-text">
-            {totalLicks < 5 ? "🔬 Subject experimental wrapper peeled open clean." : 
-             totalLicks < 12 ? "⚠️ Dental advisory status raised to critical level red." : 
-             "🌌 Outer core compromised! Center crystals emerging!"}
-          </p>
-        </div>
-        <div className="stats-content">
-          <h3>LAB SPECIFICATIONS</h3>
-          <div className="stats-card">
-            <p>🧬 Total Lifetime Licks: <span className="neon-value">{totalLicks}</span></p>
-            <p>⚡ Manual Lick Potency: <span className="neon-value">+{licksPerClick}</span></p>
-            <p>🧪 Acid Concentration: <span className="neon-value">{acidSalivaMulti.toFixed(1)}x</span></p>
+          <div className="stat-node">
+            <span className="label">AUTO DISSOLVE</span>
+            <span className="value text-pink">{autoLicks}/sec</span>
           </div>
         </div>
       </div>
 
-      {/* RIGHT COLUMN */}
-      <div className="panel right-panel">
-        <div className="store-header">
-          <h3>UPGRADES SHOP</h3>
+      {/* RIGHT SECTION: OPERATIONS PANEL */}
+      <div className="lab-panel">
+        <h2>LAB SPECIFICATIONS</h2>
+        <div className="spec-card">
+          <p>🧬 Lifetime Total: <span>{lifetimeLicks}</span></p>
+          <p>⚡ Click Potency: <span>+{clickPower}</span></p>
+          <p>🧪 Acid Strength: <span>{acidMulti.toFixed(1)}x</span></p>
         </div>
-        
-        <div className="upgrades-list">
-          <button 
-            className="store-item" 
-            onClick={() => buyUpgrade('tongue')} 
-            disabled={count < costs.tongue}
-          >
-            <div className="item-icon">👅</div>
-            <div className="item-info">
-              <span className="item-name">Rougher Tongue</span>
-              <span className="item-cost">🧬 {costs.tongue}</span>
+
+        <h2>UPGRADES SHOP</h2>
+        <div className="shop-grid">
+          <button className="shop-btn" disabled={licks < costs.tongue} onClick={() => buyUpgrade('tongue')}>
+            <span className="icon">👅</span>
+            <div className="meta">
+              <strong>Rougher Tongue</strong>
+              <span className="cost">🧬 {costs.tongue}</span>
             </div>
-            <span className="item-benefit">+1/c</span>
+            <span className="benefit">+1/c</span>
           </button>
-          
-          <button 
-            className="store-item" 
-            onClick={() => buyUpgrade('scraper')} 
-            disabled={count < costs.scraper}
-          >
-            <div className="item-icon">🪒</div>
-            <div className="item-info">
-              <span className="item-name">Metal Scraper</span>
-              <span className="item-cost">🧬 {costs.scraper}</span>
+
+          <button className="shop-btn" disabled={licks < costs.scraper} onClick={() => buyUpgrade('scraper')}>
+            <span className="icon">🪒</span>
+            <div className="meta">
+              <strong>Metal Scraper</strong>
+              <span className="cost">🧬 {costs.scraper}</span>
             </div>
-            <span className="item-benefit">+5/c</span>
+            <span className="benefit">+5/c</span>
           </button>
-          
-          <button 
-            className="store-item" 
-            onClick={() => buyUpgrade('saliva')} 
-            disabled={count < costs.saliva}
-          >
-            <div className="item-icon">🧪</div>
-            <div className="item-info">
-              <span className="item-name">Acidic Saliva</span>
-              <span className="item-cost">🧬 {costs.saliva}</span>
+
+          <button className="shop-btn" disabled={licks < costs.saliva} onClick={() => buyUpgrade('saliva')}>
+            <span className="icon">🧪</span>
+            <div className="meta">
+              <strong>Acidic Saliva</strong>
+              <span className="cost">🧬 {costs.saliva}</span>
             </div>
-            <span className="item-benefit">+{Math.floor(10 * acidSalivaMulti)}/s</span>
+            <span className="benefit">+{Math.floor(10 * acidMulti)}/s</span>
           </button>
         </div>
       </div>
     </div>
   );
 }
-
-export default App;
