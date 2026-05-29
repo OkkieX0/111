@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
+// --- IMAGE STAGE ASSETS ---
 import JB1 from './assets/JB1.png';
 import JB_licked1 from './assets/JB stg.2.png';
 import JB_licked2 from './assets/JB stg.3.png';
@@ -25,6 +26,26 @@ const STAGES = [
   JB_licked12, JB_licked13, JB_licked14, JB_licked15, JB_licked16
 ];
 
+// --- HARD-CODED PROGRESSION MILESTONES ---
+const LAYER_MILESTONES = [
+  1,        // Layer 0 dissolves at 1 lick
+  25,       // Layer 1
+  50,       // Layer 2
+  100,      // Layer 3 (Milestone reached)
+  250,      // Layer 4
+  500,      // Layer 5
+  1000,     // Layer 6 (Milestone reached)
+  2500,     // Layer 7
+  5000,     // Layer 8
+  10000,    // Layer 9 (Milestone reached)
+  25000,    // Layer 10
+  50000,    // Layer 11
+  100000,   // Layer 12
+  250000,   // Layer 13
+  500000,   // Layer 14
+  1000000   // Layer 15 dissolves, exposing the core skin
+];
+
 type UpgradeType = 'tongue' | 'scraper' | 'grandma' | 'factory' | 'saliva' | 'quantum';
 
 interface VisualEffect {
@@ -34,6 +55,7 @@ interface VisualEffect {
 }
 
 export function App() {
+  // --- CORE SYSTEM GAME STATES ---
   const [count, setCount] = useState(0);
   const [totalLicks, setTotalLicks] = useState(0);
   const [clicksCount, setClicksCount] = useState(0);
@@ -51,10 +73,11 @@ export function App() {
 
   const effectIdCounter = useRef(0);
 
-  // Calculate stats dynamically based on ownership to avoid stale state bugs
+  // --- DYNAMIC BALANCE ENGINE ---
   const licksPerClick = 1 + owned.tongue * 1 + owned.scraper * 8;
   const licksPerSecond = (owned.grandma * 4) + (owned.factory * 32) + (owned.saliva * 150) + (owned.quantum * 900);
 
+  // Smooth clicker loop processing at high frame rates (10hz checks)
   useEffect(() => {
     if (licksPerSecond <= 0) return;
     const timer = setInterval(() => {
@@ -64,6 +87,7 @@ export function App() {
     return () => clearInterval(timer);
   }, [licksPerSecond]);
 
+  // --- INTERACTION HANDLER ---
   const handleMainClick = (e: React.MouseEvent<HTMLDivElement>) => {
     setCount(prev => prev + licksPerClick);
     setTotalLicks(prev => prev + licksPerClick);
@@ -90,6 +114,7 @@ export function App() {
     setCosts(prev => ({ ...prev, [type]: Math.floor(prev[type] * 1.15) }));
   };
 
+  // --- COOKIE CLICKER STRUCTURAL SHOPS DATA ---
   const shopItems = [
     { id: 'tongue', name: 'Sandpaper Tongue', icon: '👅', benefit: '+1 / Click', cost: costs.tongue },
     { id: 'scraper', name: 'Diamond Scraper', icon: '💎', benefit: '+8 / Click', cost: costs.scraper },
@@ -100,14 +125,14 @@ export function App() {
   ] as const;
 
   const tickerMessage = 
-    totalLicks < 10 ? "🍬 Fresh jawbreaker arrived in the test chamber." :
-    totalLicks < 50 ? "👵 Local grandmas are volunteering to help lick." :
-    totalLicks < 150 ? "🦷 Dentists worldwide are signing a formal protest." :
+    totalLicks < 100 ? "🍬 Fresh jawbreaker arrived in the test chamber." :
+    totalLicks < 1000 ? "👵 Local grandmas are volunteering to help lick." :
+    totalLicks < 10000 ? "🦷 Dentists worldwide are signing a formal protest." :
     "💥 Critical mass achieved! The candy fabric is tearing apart!";
 
   return (
     <div className="game-layout">
-      {/* LEFT PANEL */}
+      {/* LEFT COLUMN PANEL */}
       <div className="panel left-panel">
         <div className="cookie-bakery-heading">
           <h2>JAWBREAKER CLICKER</h2>
@@ -122,7 +147,8 @@ export function App() {
         <div className="candy-wrapper">
           <div className={`candy-container ${isLicking ? 'animate-lick' : ''}`} onClick={handleMainClick}>
             {STAGES.map((asset, idx) => {
-              const dissolved = totalLicks >= idx * 15 && idx !== STAGES.length - 1;
+              const requiredLicks = LAYER_MILESTONES[idx] || 0;
+              const dissolved = totalLicks >= requiredLicks && idx !== STAGES.length - 1;
               return <img key={idx} src={asset} className={`candy-layer layer-${idx} ${dissolved ? 'dissolved' : ''}`} alt="" />;
             }).reverse()}
             
@@ -137,7 +163,7 @@ export function App() {
         <div className="bottom-spacing" />
       </div>
 
-      {/* MIDDLE PANEL */}
+      {/* MIDDLE COLUMN INFO */}
       <div className="panel middle-panel">
         <div className="news-ticker">
           <p className="news-title">📰 THE DAILY CRUNCH</p>
@@ -153,7 +179,7 @@ export function App() {
         </div>
       </div>
 
-      {/* RIGHT PANEL */}
+      {/* RIGHT COLUMN SHOP */}
       <div className="panel right-panel">
         <div className="store-header">
           <h3>🛒 SWEET SHOP</h3>
