@@ -94,7 +94,7 @@ body {
 }
 
 .counter-section {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  background: linear-gradient(90deg, transparent, transparent, transparent);
   padding: 16px 0;
   margin-top: 24px;
   width: 100%;
@@ -123,7 +123,7 @@ body {
 }
 
 .neon-cyan {
-  color: #00acc1;
+  color: #5d4037;
   text-shadow: none;
   background: #e0f7fa;
   padding: 2px 8px;
