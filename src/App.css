@@ -1,21 +1,23 @@
 :root {
-  --bg-dark: #07040d;
-  --panel-bg: #110a1c;
-  --panel-border: rgba(255, 255, 255, 0.06);
-  --neon-cyan: #00f0ff;
-  --neon-pink: #ff0066;
-  --neon-gold: #ffcc00;
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-hover: rgba(255, 255, 255, 0.08);
-  --candy-glow: rgba(255, 0, 102, 0.4);
+  --bg-sky: #e1f5fe;
+  --panel-bg: #ffffff;
+  --panel-border: #ffd54f;
+  --candy-pink: #ff6b8b;
+  --candy-cyan: #4fc3f7;
+  --candy-gold: #ffb300;
+  --candy-purple: #ba68c8;
+  --candy-green: #81c784;
+  --glass-bg: rgba(255, 235, 59, 0.1);
+  --glass-hover: rgba(255, 235, 59, 0.25);
+  --text-dark: #4a2800;
 }
 
-/* --- BASE & SCROLLBAR --- */
+/* --- BASE & BUBBLY SCROLLBAR --- */
 body {
   margin: 0;
-  background-color: var(--bg-dark);
-  color: #f1eff5;
-  font-family: 'Quicksand', system-ui, sans-serif;
+  background-color: var(--bg-sky);
+  color: var(--text-dark);
+  font-family: 'Quicksand', 'Comic Sans MS', system-ui, sans-serif;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
@@ -23,17 +25,19 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 12px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-dark);
+  background: #f1f1f1;
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--candy-cyan);
+  border: 3px solid #f1f1f1;
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--neon-cyan);
+  background: var(--candy-pink);
 }
 
 /* --- LAYOUT --- */
@@ -52,11 +56,12 @@ body {
   min-width: 0;
 }
 
-/* --- JAWBREAKER FOCUS (CENTER STAGE) --- */
+/* --- JAWBREAKER CELEBRATION (CENTER STAGE) --- */
 .left-panel {
   flex: 1;
   min-width: 0;
-  background: radial-gradient(circle at center, #1b0e2b 0%, #06030a 100%);
+  /* Sunburst candy sky background */
+  background: radial-gradient(circle at center, #ffffff 0%, #fff9c4 40%, #e1f5fe 100%);
   text-align: center;
   justify-content: flex-start;
   padding-top: 40px;
@@ -65,48 +70,64 @@ body {
 
 .cookie-bakery-heading h2 {
   margin: 0;
-  font-size: 2.6rem;
+  font-size: 3rem;
   font-weight: 900;
-  letter-spacing: 1px;
-  background: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink));
+  /* Fun comic text effect */
+  color: #fff;
+  text-shadow: 
+    -3px -3px 0 var(--text-dark),  
+     3px -3px 0 var(--text-dark),
+    -3px  3px 0 var(--text-dark),
+     3px  3px 0 var(--text-dark),
+     4px  8px 0px rgba(0,0,0,0.15);
+  background: linear-gradient(135deg, var(--candy-pink), var(--candy-gold));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 10px rgba(0, 240, 255, 0.5));
 }
 
 .subheading {
-  margin: 6px 0 0 0;
-  font-size: 1rem;
-  color: #9c8ea8;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  margin: 8px 0 0 0;
+  font-size: 1.1rem;
+  color: #795548;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .counter-section {
-  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.6), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
   padding: 16px 0;
   margin-top: 24px;
   width: 100%;
+  border-top: 3px dashed rgba(255, 179, 0, 0.3);
+  border-bottom: 3px dashed rgba(255, 179, 0, 0.3);
 }
 
 .licks {
-  font-size: 4rem;
+  font-size: 4.5rem;
   font-weight: 900;
   margin: 0;
-  color: var(--neon-gold);
-  text-shadow: 0 0 25px rgba(255, 204, 0, 0.6);
+  color: var(--candy-pink);
+  text-shadow: 
+    -2px -2px 0 #fff,  
+     2px -2px 0 #fff,
+    -2px  2px 0 #fff,
+     2px  2px 0 #fff,
+     0px  6px 0px rgba(0,0,0,0.1);
 }
 
 .stats-per-sec {
   margin: 6px 0 0 0;
-  font-size: 1.1rem;
-  color: #c9bed8;
-  font-weight: 500;
+  font-size: 1.2rem;
+  color: #5d4037;
+  font-weight: 700;
 }
 
 .neon-cyan {
-  color: var(--neon-cyan);
-  text-shadow: 0 0 10px var(--neon-cyan);
+  color: #00acc1;
+  text-shadow: none;
+  background: #e0f7fa;
+  padding: 2px 8px;
+  border-radius: 20px;
 }
 
 .candy-wrapper {
@@ -121,24 +142,25 @@ body {
   display: none;
 }
 
-/* --- THE JAWBREAKER --- */
+/* --- THE TOON JAWBREAKER --- */
 .candy-container {
   position: relative;
   width: 55vh;
   height: 55vh;
-  max-width: 700px;
-  max-height: 700px;
+  max-width: 650px;
+  max-height: 650px;
   cursor: pointer;
-  transition: transform 0.4s cubic-bezier(0.34, 1.8, 0.64, 1);
+  /* Hyper bouncy cartoon animations */
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .candy-container:hover {
-  transform: scale(1.06) rotate(2deg);
+  transform: scale(1.08) rotate(4deg);
 }
 
 .candy-container:active, 
 .animate-lick {
-  transform: scale(0.88) rotate(-3deg) !important;
+  transform: scale(0.85) rotate(-5deg) !important;
 }
 
 .candy-layer {
@@ -149,46 +171,53 @@ body {
   height: 100%;
   object-fit: contain;
   pointer-events: none;
-  filter: drop-shadow(0px 20px 40px rgba(0, 0, 0, 0.9));
-  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.8, 0.64, 1);
+  /* Thick cartoon pop shadow instead of deep neon shadow */
+  filter: drop-shadow(0px 15px 0px rgba(74, 40, 0, 0.15));
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .candy-layer.dissolved {
   opacity: 0;
-  transform: scale(0.3) rotate(-90deg);
+  transform: scale(0.2) rotate(-120deg);
 }
 
-/* --- POPPING JUICE VFX --- */
+/* --- STARBURST JUICE VFX --- */
 .click-ripple {
   position: absolute;
-  border: 4px solid var(--neon-cyan);
+  border: 6px solid #fff;
   border-radius: 50%;
   pointer-events: none;
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   transform: translate(-50%, -50%);
-  animation: explode 0.45s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+  animation: explode 0.4s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+  background: var(--candy-cyan);
 }
 
 @keyframes explode {
   0% { width: 0; height: 0; opacity: 1; }
-  100% { width: 200px; height: 200px; opacity: 0; box-shadow: 0 0 30px var(--neon-pink); }
+  100% { width: 160px; height: 160px; opacity: 0; background: var(--candy-gold); box-shadow: 0 0 0 10px #fff; }
 }
 
 .floating-text {
   position: absolute;
   color: #fff;
   font-weight: 900;
-  font-size: 2.8rem;
-  text-shadow: 0 4px 6px #000, 0 0 20px var(--neon-pink);
+  font-size: 3.5rem;
+  /* Pop-art outline text */
+  text-shadow: 
+    -3px -3px 0 var(--text-dark),  
+     3px -3px 0 var(--text-dark),
+    -3px  3px 0 var(--text-dark),
+     3px  3px 0 var(--text-dark);
   pointer-events: none;
-  animation: popUp 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation: popUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 @keyframes popUp {
-  0% { transform: translate(-50%, -50%) translateY(0) scale(0.7); opacity: 0; }
-  20% { opacity: 1; transform: translate(-50%, -50%) translateY(-30px) scale(1.2); }
-  100% { transform: translate(-50%, -50%) translateY(-140px) scale(0.95); opacity: 0; }
+  0% { transform: translate(-50%, -50%) translateY(0) scale(0.5) rotate(-15deg); opacity: 0; }
+  30% { opacity: 1; transform: translate(-50%, -50%) translateY(-20px) scale(1.4) rotate(10deg); }
+  100% { transform: translate(-50%, -50%) translateY(-150px) scale(1) rotate(0deg); opacity: 0; }
 }
 
 /* --- SECONDARY PANELS --- */
@@ -196,35 +225,34 @@ body {
   display: none;
 }
 
-/* --- SHOP PANEL --- */
+/* --- CANDY SHOP PANEL --- */
 .right-panel {
   flex: 0 0 380px;
   width: 380px;
-  background-color: #0b0614;
-  border-left: 2px solid var(--panel-border);
-  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+  background-color: #fffdf0;
+  border-left: 5px solid var(--panel-border);
 }
 
 .store-header {
   padding: 24px;
   text-align: center;
-  border-bottom: 2px solid var(--panel-border);
-  background: rgba(0,0,0,0.2);
+  border-bottom: 5px dashed var(--panel-border);
+  background: #fff9c4;
 }
 
 .store-header h3 {
   margin: 0;
-  font-size: 1.3rem;
-  letter-spacing: 3px;
-  color: var(--neon-cyan);
-  text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: var(--text-dark);
 }
 
 .upgrades-list {
   display: flex;
   flex-direction: column;
   padding: 16px;
-  gap: 12px;
+  gap: 16px;
   overflow-y: auto;
   flex-grow: 1;
 }
@@ -232,47 +260,55 @@ body {
 .store-item {
   display: flex;
   align-items: center;
-  background: var(--glass-bg);
-  border: 2px solid var(--panel-border);
+  background: #ffffff;
+  border: 4px solid #ffe082;
+  /* Thick toy-like borders */
+  border-bottom-width: 8px; 
   padding: 14px;
-  border-radius: 14px;
-  color: white;
+  border-radius: 20px;
+  color: var(--text-dark);
   cursor: pointer;
   font-family: inherit;
-  transition: all 0.2s ease-out;
+  transition: all 0.15s ease-out;
   width: 100%;
   box-sizing: border-box;
 }
 
 .store-item:hover:not(:disabled) {
   background: var(--glass-hover);
-  border-color: var(--neon-cyan);
-  box-shadow: 0 6px 15px rgba(0, 240, 255, 0.2);
-  transform: translateY(-3px);
+  border-color: var(--candy-gold);
+  transform: translateY(-2px);
+  border-bottom-width: 10px;
 }
 
 .store-item:active:not(:disabled) {
-  transform: translateY(0);
+  transform: translateY(4px);
+  border-bottom-width: 4px;
 }
 
 .store-item:disabled {
-  opacity: 0.35;
+  opacity: 0.4;
   cursor: not-allowed;
-  filter: grayscale(0.5);
+  filter: grayscale(0.8);
+  border-bottom-width: 4px;
 }
 
 .item-icon {
-  font-size: 1.8rem;
-  background-color: rgba(0, 0, 0, 0.4);
-  width: 52px;
-  height: 52px;
+  font-size: 2.2rem;
+  background-color: #f1f8e9;
+  border: 3px solid #c5e1a5;
+  width: 56px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 14px;
+  border-radius: 16px;
   margin-right: 16px;
-  box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
 }
+
+/* Cycle colors dynamically using child styling for that extra vibrant look */
+.store-item:nth-child(2n) .item-icon { background-color: #e1f5fe; border-color: #b3e5fc; }
+.store-item:nth-child(3n) .item-icon { background-color: #fce4ec; border-color: #f8bbd0; }
 
 .item-info {
   display: flex;
@@ -282,14 +318,15 @@ body {
 }
 
 .item-name {
-  font-weight: 700;
-  font-size: 1.1rem;
+  font-weight: 900;
+  font-size: 1.2rem;
+  color: var(--text-dark);
 }
 
 .item-cost {
-  font-size: 0.95rem;
-  color: var(--neon-gold);
-  font-weight: 700;
+  font-size: 1.05rem;
+  color: #e65100;
+  font-weight: 800;
   margin-top: 2px;
 }
 
@@ -301,18 +338,17 @@ body {
 }
 
 .item-owned {
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-weight: 900;
-  color: var(--neon-cyan);
-  opacity: 0.9;
-  letter-spacing: 1px;
+  color: var(--candy-purple);
 }
 
 .item-benefit {
-  font-size: 0.75rem;
-  color: #c4b9d4;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 3px 10px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  background-color: var(--candy-green);
+  padding: 4px 12px;
+  border-radius: 20px;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.1);
 }
