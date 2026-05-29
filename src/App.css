@@ -7,7 +7,7 @@
   --text: #e2e8f0;
 }
 
-body {
+body {  
   margin: 0;
   background-color: var(--dark-bg);
   color: var(--text);
