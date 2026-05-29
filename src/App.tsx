@@ -28,22 +28,22 @@ const STAGES = [
 
 // --- HARD-CODED PROGRESSION MILESTONES ---
 const LAYER_MILESTONES = [
-  1,        // Layer 0 dissolves at 1 lick
-  25,       // Layer 1
-  50,       // Layer 2
-  100,      // Layer 3 (Milestone reached)
-  250,      // Layer 4
-  500,      // Layer 5
-  1000,     // Layer 6 (Milestone reached)
-  2500,     // Layer 7
-  5000,     // Layer 8
-  10000,    // Layer 9 (Milestone reached)
-  25000,    // Layer 10
-  50000,    // Layer 11
-  100000,   // Layer 12
-  250000,   // Layer 13
-  500000,   // Layer 14
-  1000000   // Layer 15 dissolves, exposing the core skin
+  10,        // Layer 0 dissolves at 1 lick
+  100,       // Layer 1
+  1000,       // Layer 2
+  2000,      // Layer 3 (Milestone reached)
+  3000,      // Layer 4
+  4000,      // Layer 5
+  5000,     // Layer 6 (Milestone reached)
+  6000,     // Layer 7
+  7000,     // Layer 8
+  8000,    // Layer 9 (Milestone reached)
+  9000,    // Layer 10
+  10000,    // Layer 11
+  11000,   // Layer 12
+  12000,   // Layer 13
+  13000,   // Layer 14
+  140000   // Layer 15 dissolves, exposing the core skin
 ];
 
 type UpgradeType = 'tongue' | 'scraper' | 'grandma' | 'factory' | 'saliva' | 'quantum';
