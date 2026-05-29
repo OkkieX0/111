@@ -122,10 +122,10 @@ body {
   font-weight: 700;
 }
 
-.neon-cyan {
+.per-second {
   color: #5d4037;
   text-shadow: none;
-  background: #e0f7fa;
+  background: transparent;
   padding: 2px 8px;
   border-radius: 20px;
 }

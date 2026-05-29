@@ -141,7 +141,7 @@ export function App() {
         
         <div className="counter-section">
           <p className="licks">{Math.floor(count).toLocaleString()} 👅</p>
-          <p className="stats-per-sec">per second: <span className="neon-cyan">{licksPerSecond.toLocaleString()}</span></p>
+          <p className="stats-per-sec">per second: <span className="per-second">{licksPerSecond.toLocaleString()}</span></p>
         </div>
 
         <div className="candy-wrapper">
