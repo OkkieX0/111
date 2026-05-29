@@ -147,8 +147,8 @@ body {
   position: relative;
   width: 75vh;
   height: 75vh;
-  max-width: 650px;
-  max-height: 650px;
+  max-width: 750px;
+  max-height: 750px;
   cursor: pointer;
   /* Hyper bouncy cartoon animations */
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
