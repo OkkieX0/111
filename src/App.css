@@ -81,7 +81,7 @@ body {
      3px  3px 0 var(--text-dark),
      4px  8px 0px rgba(0,0,0,0.15);
   background: linear-gradient(135deg, var(--candy-pink), var(--candy-gold));
-  /*-webkit-background-clip: text;*/
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
