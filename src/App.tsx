@@ -124,6 +124,11 @@ export function App() {
     { id: 'quantum', name: 'Subatomic Dissolver', icon: '🌌', benefit: '+900 / Sec', cost: costs.quantum },
   ] as const;
 
+  const tickerMessage = 
+    totalLicks < 100 ? "🍬 Fresh jawbreaker arrived in the test chamber." :
+    totalLicks < 1000 ? "👵 Local grandmas are volunteering to help lick." :
+    totalLicks < 10000 ? "🦷 Dentists worldwide are signing a formal protest." :
+    "💥 Critical mass achieved! The candy fabric is tearing apart!";
 
   return (
     <div className="game-layout">
