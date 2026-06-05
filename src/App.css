@@ -12,7 +12,6 @@
   --text-dark: #4a2800;
 }
 
-
 body {
   margin: 0;
   background-color: var(--bg-sky);
@@ -24,6 +23,7 @@ body {
   user-select: none;
 }
 
+/* --- SCROLLBARS --- */
 ::-webkit-scrollbar {
   width: 12px;
 }
@@ -40,13 +40,46 @@ body {
   background: var(--candy-pink);
 }
 
-
+/* --- GLOBAL APP CONTAINERS --- */
 .game-layout {
   display: flex;
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
 }
 
+/* New layout wrapper grouping gameplay content */
+.main-gameplay {
+  display: flex;
+  flex-grow: 1;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* --- ADVERTISEMENT SIDEBAR --- */
+.sidebar-ad {
+  width: 160px; /* Standard skyscraper display banner width */
+  height: 100%;
+  background-color: #fffdf0; 
+  border-right: 5px solid var(--panel-border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+  flex-shrink: 0; /* Prevents layout compression */
+}
+
+.ad-banner {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+  filter: drop-shadow(0px 8px 0px rgba(74, 40, 0, 0.1));
+}
+
+/* --- PANELS CONFIGURATION --- */
 .panel {
   box-sizing: border-box;
   height: 100%;
@@ -66,6 +99,18 @@ body {
   position: relative;
 }
 
+.middle-panel {
+  display: none;
+}
+
+.right-panel {
+  flex: 0 0 380px;
+  width: 380px;
+  background-color: #fffdf0;
+  border-left: 5px solid var(--panel-border);
+}
+
+/* --- LEFT PANEL ELEMENTS (CLICKER) --- */
 .cookie-bakery-heading h2 {
   margin: 0;
   font-size: 3rem;
@@ -139,7 +184,6 @@ body {
   display: none;
 }
 
-
 .candy-container {
   position: relative;
   width: 55vh;
@@ -175,6 +219,7 @@ body {
   opacity: 0;
   transform: scale(0.2) rotate(-120deg);
 }
+
 .click-ripple {
   position: absolute;
   border: 6px solid #fff;
@@ -212,17 +257,7 @@ body {
   100% { transform: translate(-50%, -50%) translateY(-150px) scale(1) rotate(0deg); opacity: 0; }
 }
 
-.middle-panel {
-  display: none;
-}
-
-.right-panel {
-  flex: 0 0 380px;
-  width: 380px;
-  background-color: #fffdf0;
-  border-left: 5px solid var(--panel-border);
-}
-
+/* --- RIGHT PANEL ELEMENTS (SHOP) --- */
 .store-header {
   padding: 24px;
   text-align: center;
@@ -252,7 +287,6 @@ body {
   align-items: center;
   background: #ffffff;
   border: 4px solid #ffe082;
-  /* Thick toy-like borders */
   border-bottom-width: 8px; 
   padding: 14px;
   border-radius: 20px;
@@ -340,13 +374,4 @@ body {
   padding: 4px 12px;
   border-radius: 20px;
   box-shadow: 0 3px 0 rgba(0,0,0,0.1);
-}
-.advertisement {
-  flex: 1;
-  min-width: 0;
-  background: radial-gradient(circle at center, #ffffff 0%, #fff9c4 40%, #e1f5fe 100%);
-  text-align: center;
-  justify-content: flex-start;
-  padding-top: 40px;
-  position: relative;
 }

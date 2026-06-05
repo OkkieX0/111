@@ -30,20 +30,20 @@ const STAGES = [
 const LAYER_MILESTONES = [
   50,        // Layer 0
   100,       // Layer 1
-  1000,       // Layer 2
+  1000,      // Layer 2
   2000,      // Layer 3 
   3000,      // Layer 4
   4000,      // Layer 5
-  5000,     // Layer 6
-  6000,     // Layer 7
-  7000,     // Layer 8
-  8000,    // Layer 9 
-  9000,    // Layer 10
-  10000,    // Layer 11
-  100000,   // Layer 12
-  200000,   // Layer 13
-  300000,   // Layer 14
-  4000000   // Layer 15 
+  5000,      // Layer 6
+  6000,      // Layer 7
+  7000,      // Layer 8
+  8000,      // Layer 9 
+  9000,      // Layer 10
+  10000,     // Layer 11
+  100000,    // Layer 12
+  200000,    // Layer 13
+  300000,    // Layer 14
+  4000000    // Layer 15 
 ];
 
 type UpgradeType = 'tongue' | 'scraper' | 'grandma' | 'factory' | 'saliva' | 'quantum';
@@ -126,76 +126,84 @@ export function App() {
      "💥 Critical mass achieved! The candy fabric is tearing apart!";
 
   return (
-
     <div className="game-layout">
 
-      <div className="panel left-panel">
-        <div className="cookie-bakery-heading">
-    <h2>JAWBREAKER CLICKER</h2>
-          <p className="subheading">Survive the sour center!</p>
-        </div>
-        <div className="advertisement">
- <img src={Advertisement} alt="advertisement"/>
-    </div>
-        <div className="counter-section">
-         <p className="licks">{Math.floor(count).toLocaleString()} 👅</p>
-          <p className="stats-per-sec">per second: <span className="per-second">{licksPerSecond.toLocaleString()}</span></p>
-        </div>
-
-        <div className="candy-wrapper">
-          <div className={`candy-container ${isLicking ? 'animate-lick' : ''}`} onClick={handleMainClick}>
-          {STAGES.map((asset, idx) => {
-              const requiredLicks = LAYER_MILESTONES[idx] || 0;
-              const dissolved = totalLicks >= requiredLicks && idx !== STAGES.length - 1;
-              return <img key={idx} src={asset} className={`candy-layer layer-${idx} ${dissolved ? 'dissolved' : ''}`} alt="" />;
-            }).reverse()}
-            
-            {ripples.map(r => (
-              <span key={r.id} className="click-ripple" style={{ left: r.x, top: r.y }} onAnimationEnd={() => setRipples(p => p.filter(i => i.id !== r.id))} />
-            ))}
-            {floatingTexts.map(t => (
-            <span key={t.id} className="floating-text" style={{ left: t.x, top: t.y }} onAnimationEnd={() => setFloatingTexts(p => p.filter(i => i.id !== t.id))}>+{licksPerClick}</span>
-            ))}
-          </div>
-    </div>
-        <div className="bottom-spacing" />
+      {/* --- SIDEBAR ADVERTISEMENT --- */}
+      <div className="sidebar-ad">
+        <img src={Advertisement} alt="Advertisement" className="ad-banner" />
       </div>
 
-      <div className="panel middle-panel">
-        <div className="news-ticker">
-          <p className="news-title">📰 THE DAILY CRUNCH</p>
-          <p className="news-text">{tickerMessage}</p>
+      {/* --- WRAPPER FOR ORIGINAL GAMEPLAY PANELS --- */}
+      <div className="main-gameplay">
+        
+        {/* --- LEFT PANEL --- */}
+        <div className="panel left-panel">
+          <div className="cookie-bakery-heading">
+            <h2>JAWBREAKER CLICKER</h2>
+            <p className="subheading">Survive the sour center!</p>
+          </div>
+          <div className="counter-section">
+            <p className="licks">{Math.floor(count).toLocaleString()} 👅</p>
+            <p className="stats-per-sec">per second: <span className="per-second">{licksPerSecond.toLocaleString()}</span></p>
+          </div>
+
+          <div className="candy-wrapper">
+            <div className={`candy-container ${isLicking ? 'animate-lick' : ''}`} onClick={handleMainClick}>
+              {STAGES.map((asset, idx) => {
+                const requiredLicks = LAYER_MILESTONES[idx] || 0;
+                const dissolved = totalLicks >= requiredLicks && idx !== STAGES.length - 1;
+                return <img key={idx} src={asset} className={`candy-layer layer-${idx} ${dissolved ? 'dissolved' : ''}`} alt="" />;
+              }).reverse()}
+              
+              {ripples.map(r => (
+                <span key={r.id} className="click-ripple" style={{ left: r.x, top: r.y }} onAnimationEnd={() => setRipples(p => p.filter(i => i.id !== r.id))} />
+              ))}
+              {floatingTexts.map(t => (
+                <span key={t.id} className="floating-text" style={{ left: t.x, top: t.y }} onAnimationEnd={() => setFloatingTexts(p => p.filter(i => i.id !== t.id))}>+{licksPerClick}</span>
+              ))}
+            </div>
+          </div>
+          <div className="bottom-spacing" />
         </div>
-        <div className="stats-content">
-          <h3>📊 RADAR STATISTICS</h3>
-          <div className="stats-card">
-            <p>🧬 Lifetime Licks: <span className="neon-value">{Math.floor(totalLicks).toLocaleString()}</span></p>
-            <p>⚡ Current Lick Power: <span className="neon-value">+{licksPerClick}</span></p>
-            <p>🖱️ Total Manual Clicks: <span className="neon-value">{clicksCount}</span></p>
+
+        {/* --- MIDDLE PANEL --- */}
+        <div className="panel middle-panel">
+          <div className="news-ticker">
+            <p className="news-title">📰 THE DAILY CRUNCH</p>
+            <p className="news-text">{tickerMessage}</p>
+          </div>
+          <div className="stats-content">
+            <h3>📊 RADAR STATISTICS</h3>
+            <div className="stats-card">
+              <p>🧬 Lifetime Licks: <span className="neon-value">{Math.floor(totalLicks).toLocaleString()}</span></p>
+              <p>⚡ Current Lick Power: <span className="neon-value">+{licksPerClick}</span></p>
+              <p>🖱️ Total Manual Clicks: <span className="neon-value">{clicksCount}</span></p>
+            </div>
           </div>
         </div>
-      </div>
 
+        {/* --- RIGHT PANEL --- */}
+        <div className="panel right-panel">
+          <div className="store-header">
+            <h3>🛒 SWEET SHOP</h3>
+          </div>
+          <div className="upgrades-list">
+            {shopItems.map(item => (
+              <button key={item.id} className="store-item" onClick={() => buyUpgrade(item.id)} disabled={count < item.cost}>
+                <div className="item-icon">{item.icon}</div>
+                <div className="item-info">
+                  <span className="item-name">{item.name}</span>
+                  <span className="item-cost">💰 {item.cost.toLocaleString()}</span>
+                </div>
+                <div className="item-meta">
+                  <span className="item-owned">x{owned[item.id]}</span>
+                  <span className="item-benefit">{item.benefit}</span>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
 
-      <div className="panel right-panel">
-        <div className="store-header">
-          <h3>🛒 SWEET SHOP</h3>
-        </div>
-        <div className="upgrades-list">
-          {shopItems.map(item => (
-        <button key={item.id} className="store-item" onClick={() => buyUpgrade(item.id)} disabled={count < item.cost}>
-              <div className="item-icon">{item.icon}</div>
-        <div className="item-info">
-        <span className="item-name">{item.name}</span>
-                <span className="item-cost">💰 {item.cost.toLocaleString()}</span>
-              </div>
-          <div className="item-meta">
-            <span className="item-owned">x{owned[item.id]}</span>
-        <span className="item-benefit">{item.benefit}</span>
-              </div>
-            </button>
-          ))}
-        </div>
       </div>
     </div>
   );
