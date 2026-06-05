@@ -130,7 +130,9 @@ export function App() {
 
       {/* --- SIDEBAR ADVERTISEMENT --- */}
       <div className="sidebar-ad">
+        <a href="https://en.wikipedia.org/wiki/Internet_safety">
         <img src={Advertisement} alt="Advertisement" className="ad-banner" />
+        </a>
       </div>
 
       {/* --- WRAPPER FOR ORIGINAL GAMEPLAY PANELS --- */}
