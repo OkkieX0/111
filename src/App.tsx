@@ -131,7 +131,7 @@ export function App() {
   return (
     <div className="game-layout">
       <div className="sidebar-ad">
-        <a href="https://wikipedia.org">
+        <a href="https://en.wikipedia.org/wiki/Internet_safety">
           <img src={Advertisement} alt="Advertisement" className="ad-banner" />
         </a>
       </div>
