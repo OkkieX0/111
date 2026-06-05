@@ -21,6 +21,14 @@ import JB_licked15 from './assets/JB stg.16.png';
 import JB_licked16 from './assets/JB stg.17.png';
 import Advertisement from './assets/yummy.png';
 
+// --- SOUND EFFECTS ---
+const playUpgradeSound = () => {
+  // Ensure your audio asset is in public/sounds/upgrade.mp3
+  const audio = new Audio('/sounds/upgrade.mp3');
+  audio.volume = 0.4; // Softened volume for repeat purchases
+  audio.play().catch((err) => console.error('Audio playback blocked/failed:', err));
+};
+
 const STAGES = [
   JB1, JB_licked1, JB_licked2, JB_licked3, JB_licked4, JB_licked5,
   JB_licked6, JB_licked7, JB_licked8, JB_licked9, JB_licked10, JB_licked11,
@@ -105,6 +113,9 @@ export function App() {
     const cost = costs[type];
     if (count < cost) return;
 
+    // Trigger the upgrade sound effect here
+    playUpgradeSound();
+
     setCount(prev => prev - cost);
     setOwned(prev => ({ ...prev, [type]: prev[type] + 1 }));
     setCosts(prev => ({ ...prev, [type]: Math.floor(prev[type] * 1.15) }));
@@ -119,7 +130,7 @@ export function App() {
     { id: 'quantum', name: 'Subatomic Dissolver', icon: '🌌', benefit: '+900 / Sec', cost: costs.quantum },
   ] as const;
 
-   const tickerMessage = 
+  const tickerMessage = 
      totalLicks < 100 ? "🍬 Fresh jawbreaker arrived in the test chamber." :
      totalLicks < 1000 ? "👵 Local grandmas are volunteering to help lick." :
      totalLicks < 10000 ? "🦷 Dentists worldwide are signing a formal protest." :
@@ -127,16 +138,13 @@ export function App() {
 
   return (
     <div className="game-layout">
-
-
       <div className="sidebar-ad">
         <a href="https://en.wikipedia.org/wiki/Internet_safety">
-        <img src={Advertisement} alt="Advertisement" className="ad-banner" />
+          <img src={Advertisement} alt="Advertisement" className="ad-banner" />
         </a>
       </div>
 
       <div className="main-gameplay">
-        
         <div className="panel left-panel">
           <div className="cookie-bakery-heading">
             <h2>JAWBREAKER CLICKER</h2>
@@ -193,18 +201,12 @@ export function App() {
                   <span className="item-name">{item.name}</span>
                   <span className="item-cost"> 👅{item.cost.toLocaleString()}</span>
                 </div>
-                <div className="item-meta">
-                  <span className="item-owned">x{owned[item.id]}</span>
-                  <span className="item-benefit">{item.benefit}</span>
-                </div>
+                <div className="item-meta">+{item.benefit}</div>
               </button>
             ))}
           </div>
         </div>
-
       </div>
     </div>
   );
 }
-
-export default App;
