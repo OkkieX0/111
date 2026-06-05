@@ -26,24 +26,23 @@ const STAGES = [
   JB_licked12, JB_licked13, JB_licked14, JB_licked15, JB_licked16
 ];
 
-// --- HARD-CODED PROGRESSION MILESTONES ---
 const LAYER_MILESTONES = [
-  10,        // Layer 0 dissolves at 1 lick
+  10,        // Layer 0
   100,       // Layer 1
   1000,       // Layer 2
-  2000,      // Layer 3 (Milestone reached)
+  2000,      // Layer 3 
   3000,      // Layer 4
   4000,      // Layer 5
-  5000,     // Layer 6 (Milestone reached)
+  5000,     // Layer 6
   6000,     // Layer 7
   7000,     // Layer 8
-  8000,    // Layer 9 (Milestone reached)
+  8000,    // Layer 9 
   9000,    // Layer 10
   10000,    // Layer 11
   11000,   // Layer 12
   12000,   // Layer 13
   13000,   // Layer 14
-  140000   // Layer 15 dissolves, exposing the core skin
+  140000   // Layer 15 
 ];
 
 type UpgradeType = 'tongue' | 'scraper' | 'grandma' | 'factory' | 'saliva' | 'quantum';
@@ -55,7 +54,6 @@ interface VisualEffect {
 }
 
 export function App() {
-  // --- CORE SYSTEM GAME STATES ---
   const [count, setCount] = useState(0);
   const [totalLicks, setTotalLicks] = useState(0);
   const [clicksCount, setClicksCount] = useState(0);
