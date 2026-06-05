@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
-// --- IMAGE STAGE ASSETS ---
 import JB1 from './assets/JB1.png';
 import JB_licked1 from './assets/JB stg.2.png';
 import JB_licked2 from './assets/JB stg.3.png';
@@ -21,7 +20,6 @@ import JB_licked15 from './assets/JB stg.16.png';
 import JB_licked16 from './assets/JB stg.17.png';
 import Advertisement from './assets/yummy.png';
 
-// --- AUDIO ASSETS ---
 import lickSoundFile from './assets/yippee-tbh.mp3';      
 import buySoundFile from './assets/yippee-tbh.mp3';        
 
@@ -62,11 +60,10 @@ export function App() {
 
   const effectIdCounter = useRef(0);
 
-  // --- AUDIO REFERENCES ---
+
   const lickAudioRef = useRef<HTMLAudioElement | null>(null);
   const buyAudioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Lazy initialize audio objects so they only load once
   if (!lickAudioRef.current) {
     lickAudioRef.current = new Audio(lickSoundFile);
   }
@@ -92,9 +89,8 @@ export function App() {
     setClicksCount(prev => prev + 1);
     setIsLicking(true);
     
-    // Play jawbreaker click sound instantly
     if (lickAudioRef.current) {
-      lickAudioRef.current.currentTime = 0; // Rewind track for instant rapid clicks
+      lickAudioRef.current.currentTime = 0; 
       lickAudioRef.current.play().catch(err => console.log("Audio blocked:", err));
     }
 
@@ -117,9 +113,8 @@ export function App() {
     setOwned(prev => ({ ...prev, [type]: prev[type] + 1 }));
     setCosts(prev => ({ ...prev, [type]: Math.floor(prev[type] * 1.15) }));
 
-    // Play upgrade purchase sound
     if (buyAudioRef.current) {
-      buyAudioRef.current.currentTime = 0; // Rewind track if clicking quickly
+      buyAudioRef.current.currentTime = 0; 
       buyAudioRef.current.play().catch(err => console.log("Audio blocked:", err));
     }
   };
