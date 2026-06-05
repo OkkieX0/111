@@ -21,10 +21,6 @@ import JB_licked15 from './assets/JB stg.16.png';
 import JB_licked16 from './assets/JB stg.17.png';
 import Advertisement from './assets/yummy.png';
 
-// --- AUDIO ASSETS ---
-import lickSfx from './assets/yippee-tbh.mp3';
-import buySfx from './assets/yippee-tbh.mp3';
-
 const STAGES = [
   JB1, JB_licked1, JB_licked2, JB_licked3, JB_licked4, JB_licked5,
   JB_licked6, JB_licked7, JB_licked8, JB_licked9, JB_licked10, JB_licked11,
@@ -32,8 +28,22 @@ const STAGES = [
 ];
 
 const LAYER_MILESTONES = [
-  50, 100, 1000, 2000, 3000, 4000, 5000, 6000, 
-  7000, 8000, 9000, 10000, 100000, 200000, 300000, 4000000
+  50,        // Layer 0
+  100,       // Layer 1
+  1000,      // Layer 2
+  2000,      // Layer 3 
+  3000,      // Layer 4
+  4000,      // Layer 5
+  5000,      // Layer 6
+  6000,      // Layer 7
+  7000,      // Layer 8
+  8000,      // Layer 9 
+  9000,      // Layer 10
+  10000,     // Layer 11
+  100000,    // Layer 12
+  200000,    // Layer 13
+  300000,    // Layer 14
+  4000000    // Layer 15 
 ];
 
 type UpgradeType = 'tongue' | 'scraper' | 'grandma' | 'factory' | 'saliva' | 'quantum';
@@ -62,10 +72,6 @@ export function App() {
 
   const effectIdCounter = useRef(0);
 
-  // Persistent browser Audio elements instantiated exactly once
-  const lickAudio = useRef(new Audio(lickSfx));
-  const buyAudio = useRef(new Audio(buySfx));
-
   const licksPerClick = 1 + owned.tongue * 1 + owned.scraper * 8;
   const licksPerSecond = (owned.grandma * 4) + (owned.factory * 32) + (owned.saliva * 150) + (owned.quantum * 900);
 
@@ -78,16 +84,7 @@ export function App() {
     return () => clearInterval(timer);
   }, [licksPerSecond]);
 
-  // Audio Playback Manager 
-  const triggerSound = (audioObj: HTMLAudioElement, volume: number = 0.5) => {
-    audioObj.currentTime = 0; 
-    audioObj.volume = volume;
-    audioObj.play().catch(err => console.warn("Browser blocked instant sound execution:", err));
-  };
-
   const handleMainClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    triggerSound(lickAudio.current, 0.5); // Triggers audio track immediately upon clicking the main item
-
     setCount(prev => prev + licksPerClick);
     setTotalLicks(prev => prev + licksPerClick);
     setClicksCount(prev => prev + 1);
@@ -107,8 +104,6 @@ export function App() {
   const buyUpgrade = (type: UpgradeType) => {
     const cost = costs[type];
     if (count < cost) return;
-
-    triggerSound(buyAudio.current, 0.6); // Triggers shop-buying sound track immediately upon validation
 
     setCount(prev => prev - cost);
     setOwned(prev => ({ ...prev, [type]: prev[type] + 1 }));
@@ -132,13 +127,16 @@ export function App() {
 
   return (
     <div className="game-layout">
+
+
       <div className="sidebar-ad">
-        <a href="https://wikipedia.org">
-          <img src={Advertisement} alt="Advertisement" className="ad-banner" />
+        <a href="https://en.wikipedia.org/wiki/Internet_safety">
+        <img src={Advertisement} alt="Advertisement" className="ad-banner" />
         </a>
       </div>
 
       <div className="main-gameplay">
+        
         <div className="panel left-panel">
           <div className="cookie-bakery-heading">
             <h2>JAWBREAKER CLICKER</h2>
@@ -165,9 +163,9 @@ export function App() {
               ))}
             </div>
           </div>
+          <div className="bottom-spacing" />
         </div>
 
-        {/* This panel matches your CSS configuration where .middle-panel is hidden */}
         <div className="panel middle-panel">
           <div className="news-ticker">
             <p className="news-title">📰 THE DAILY CRUNCH</p>
@@ -196,14 +194,17 @@ export function App() {
                   <span className="item-cost"> 👅{item.cost.toLocaleString()}</span>
                 </div>
                 <div className="item-meta">
+                  <span className="item-owned">x{owned[item.id]}</span>
                   <span className="item-benefit">{item.benefit}</span>
-                  <span className="item-owned">Owned: {owned[item.id]}</span>
                 </div>
               </button>
             ))}
           </div>
         </div>
+
       </div>
     </div>
   );
 }
+
+export default App;
