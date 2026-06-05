@@ -27,7 +27,7 @@ const STAGES = [
 ];
 
 const LAYER_MILESTONES = [
-  10,        // Layer 0
+  50,        // Layer 0
   100,       // Layer 1
   1000,       // Layer 2
   2000,      // Layer 3 
@@ -39,10 +39,10 @@ const LAYER_MILESTONES = [
   8000,    // Layer 9 
   9000,    // Layer 10
   10000,    // Layer 11
-  11000,   // Layer 12
-  12000,   // Layer 13
-  13000,   // Layer 14
-  140000   // Layer 15 
+  100000,   // Layer 12
+  200000,   // Layer 13
+  300000,   // Layer 14
+  4000000   // Layer 15 
 ];
 
 type UpgradeType = 'tongue' | 'scraper' | 'grandma' | 'factory' | 'saliva' | 'quantum';
@@ -71,11 +71,9 @@ export function App() {
 
   const effectIdCounter = useRef(0);
 
-  // --- DYNAMIC BALANCE ENGINE ---
   const licksPerClick = 1 + owned.tongue * 1 + owned.scraper * 8;
   const licksPerSecond = (owned.grandma * 4) + (owned.factory * 32) + (owned.saliva * 150) + (owned.quantum * 900);
 
-  // Smooth clicker loop processing at high frame rates (10hz checks)
   useEffect(() => {
     if (licksPerSecond <= 0) return;
     const timer = setInterval(() => {
@@ -85,7 +83,6 @@ export function App() {
     return () => clearInterval(timer);
   }, [licksPerSecond]);
 
-  // --- INTERACTION HANDLER ---
   const handleMainClick = (e: React.MouseEvent<HTMLDivElement>) => {
     setCount(prev => prev + licksPerClick);
     setTotalLicks(prev => prev + licksPerClick);
@@ -112,7 +109,6 @@ export function App() {
     setCosts(prev => ({ ...prev, [type]: Math.floor(prev[type] * 1.15) }));
   };
 
-  // --- COOKIE CLICKER STRUCTURAL SHOPS DATA ---
   const shopItems = [
     { id: 'tongue', name: 'Sandpaper Tongue', icon: '👅', benefit: '+1 / Click', cost: costs.tongue },
     { id: 'scraper', name: 'Diamond Scraper', icon: '💎', benefit: '+8 / Click', cost: costs.scraper },
@@ -122,11 +118,11 @@ export function App() {
     { id: 'quantum', name: 'Subatomic Dissolver', icon: '🌌', benefit: '+900 / Sec', cost: costs.quantum },
   ] as const;
 
-  const tickerMessage = 
-    totalLicks < 100 ? "🍬 Fresh jawbreaker arrived in the test chamber." :
-    totalLicks < 1000 ? "👵 Local grandmas are volunteering to help lick." :
-    totalLicks < 10000 ? "🦷 Dentists worldwide are signing a formal protest." :
-    "💥 Critical mass achieved! The candy fabric is tearing apart!";
+  // const tickerMessage = 
+   //  totalLicks < 100 ? "🍬 Fresh jawbreaker arrived in the test chamber." :
+    // totalLicks < 1000 ? "👵 Local grandmas are volunteering to help lick." :
+    // totalLicks < 10000 ? "🦷 Dentists worldwide are signing a formal protest." :
+   //  "💥 Critical mass achieved! The candy fabric is tearing apart!";
 
   return (
     <div className="game-layout">
