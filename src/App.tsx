@@ -119,8 +119,6 @@ export function App() {
     { id: 'quantum', name: 'Subatomic Dissolver', icon: '🌌', benefit: '+900 / Sec', cost: costs.quantum },
   ] as const;
 
-
-
   return (
     <div className="game-layout">
 
