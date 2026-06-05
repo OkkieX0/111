@@ -157,7 +157,6 @@ export function App() {
         <div className="bottom-spacing" />
       </div>
 
-      {/* MIDDLE COLUMN INFO */}
       <div className="panel middle-panel">
         <div className="news-ticker">
           <p className="news-title">📰 THE DAILY CRUNCH</p>
