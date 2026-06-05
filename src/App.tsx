@@ -193,7 +193,7 @@ export function App() {
                 <div className="item-icon">{item.icon}</div>
                 <div className="item-info">
                   <span className="item-name">{item.name}</span>
-                  <span className="item-cost">💰 {item.cost.toLocaleString()}</span>
+                  <span className="item-cost"> 👅{item.cost.toLocaleString()}</span>
                 </div>
                 <div className="item-meta">
                   <span className="item-owned">x{owned[item.id]}</span>
