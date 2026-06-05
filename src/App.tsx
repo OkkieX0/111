@@ -23,8 +23,8 @@ import Advertisement from './assets/yummy.png';
 
 // --- AUDIO ASSETS ---
 // Replace these with your actual audio files inside your assets folder
-import lickSfx from './assets/lick.mp3';
-import buySfx from './assets/buy.mp3';
+import lickSfx from './assets/yippee-tbh.mp3';
+import buySfx from './assets/yippee-tbh.mp3';
 
 const STAGES = [
   JB1, JB_licked1, JB_licked2, JB_licked3, JB_licked4, JB_licked5,
