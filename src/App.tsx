@@ -129,9 +129,9 @@ export function App() {
     <div className="game-layout">
       {/* LEFT COLUMN PANEL */}
       <div className="panel left-panel">
-      <img src={Advertisement} alt="advertisement"/>
         <div className="cookie-bakery-heading">
     <h2>JAWBREAKER CLICKER</h2>
+    <img src={Advertisement} alt="advertisement"/>
           <p className="subheading">Survive the sour center!</p>
         </div>
         
