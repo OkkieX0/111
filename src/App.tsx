@@ -19,6 +19,7 @@ import JB_licked13 from './assets/JB stg.14.png';
 import JB_licked14 from './assets/JB stg.15.png';
 import JB_licked15 from './assets/JB stg.16.png';
 import JB_licked16 from './assets/JB stg.17.png';
+import ADD from './assets/TOYOTA.png';
 
 const STAGES = [
   JB1, JB_licked1, JB_licked2, JB_licked3, JB_licked4, JB_licked5,
@@ -128,19 +129,20 @@ export function App() {
     <div className="game-layout">
       {/* LEFT COLUMN PANEL */}
       <div className="panel left-panel">
+      <img src={ADD} alt="advertisement"/>
         <div className="cookie-bakery-heading">
-          <h2>JAWBREAKER CLICKER</h2>
+    <h2>JAWBREAKER CLICKER</h2>
           <p className="subheading">Survive the sour center!</p>
         </div>
         
         <div className="counter-section">
-          <p className="licks">{Math.floor(count).toLocaleString()} 👅</p>
+         <p className="licks">{Math.floor(count).toLocaleString()} 👅</p>
           <p className="stats-per-sec">per second: <span className="per-second">{licksPerSecond.toLocaleString()}</span></p>
         </div>
 
         <div className="candy-wrapper">
           <div className={`candy-container ${isLicking ? 'animate-lick' : ''}`} onClick={handleMainClick}>
-            {STAGES.map((asset, idx) => {
+          {STAGES.map((asset, idx) => {
               const requiredLicks = LAYER_MILESTONES[idx] || 0;
               const dissolved = totalLicks >= requiredLicks && idx !== STAGES.length - 1;
               return <img key={idx} src={asset} className={`candy-layer layer-${idx} ${dissolved ? 'dissolved' : ''}`} alt="" />;
@@ -150,10 +152,10 @@ export function App() {
               <span key={r.id} className="click-ripple" style={{ left: r.x, top: r.y }} onAnimationEnd={() => setRipples(p => p.filter(i => i.id !== r.id))} />
             ))}
             {floatingTexts.map(t => (
-              <span key={t.id} className="floating-text" style={{ left: t.x, top: t.y }} onAnimationEnd={() => setFloatingTexts(p => p.filter(i => i.id !== t.id))}>+{licksPerClick}</span>
+            <span key={t.id} className="floating-text" style={{ left: t.x, top: t.y }} onAnimationEnd={() => setFloatingTexts(p => p.filter(i => i.id !== t.id))}>+{licksPerClick}</span>
             ))}
           </div>
-        </div>
+    </div>
         <div className="bottom-spacing" />
       </div>
 
@@ -172,22 +174,22 @@ export function App() {
         </div>
       </div>
 
-      {/* RIGHT COLUMN SHOP */}
+
       <div className="panel right-panel">
         <div className="store-header">
           <h3>🛒 SWEET SHOP</h3>
         </div>
         <div className="upgrades-list">
           {shopItems.map(item => (
-            <button key={item.id} className="store-item" onClick={() => buyUpgrade(item.id)} disabled={count < item.cost}>
+        <button key={item.id} className="store-item" onClick={() => buyUpgrade(item.id)} disabled={count < item.cost}>
               <div className="item-icon">{item.icon}</div>
-              <div className="item-info">
-                <span className="item-name">{item.name}</span>
+        <div className="item-info">
+        <span className="item-name">{item.name}</span>
                 <span className="item-cost">💰 {item.cost.toLocaleString()}</span>
               </div>
-              <div className="item-meta">
-                <span className="item-owned">x{owned[item.id]}</span>
-                <span className="item-benefit">{item.benefit}</span>
+          <div className="item-meta">
+            <span className="item-owned">x{owned[item.id]}</span>
+        <span className="item-benefit">{item.benefit}</span>
               </div>
             </button>
           ))}
