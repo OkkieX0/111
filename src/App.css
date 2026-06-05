@@ -23,7 +23,6 @@ body {
   user-select: none;
 }
 
-/* --- SCROLLBARS --- */
 ::-webkit-scrollbar {
   width: 12px;
 }
@@ -40,7 +39,6 @@ body {
   background: var(--candy-pink);
 }
 
-/* --- GLOBAL APP CONTAINERS --- */
 .game-layout {
   display: flex;
   height: 100vh;
@@ -48,7 +46,6 @@ body {
   overflow: hidden;
 }
 
-/* New layout wrapper grouping gameplay content */
 .main-gameplay {
   display: flex;
   flex-grow: 1;
@@ -56,9 +53,8 @@ body {
   overflow: hidden;
 }
 
-/* --- ADVERTISEMENT SIDEBAR --- */
 .sidebar-ad {
-  width: 160px; /* Standard skyscraper display banner width */
+  width: 160px;
   height: 100%;
   background-color: #fffdf0; 
   border-right: 5px solid var(--panel-border);
@@ -67,7 +63,7 @@ body {
   align-items: center;
   padding: 10px;
   box-sizing: border-box;
-  flex-shrink: 0; /* Prevents layout compression */
+  flex-shrink: 0;
 }
 
 .ad-banner {
@@ -79,7 +75,6 @@ body {
   filter: drop-shadow(0px 8px 0px rgba(74, 40, 0, 0.1));
 }
 
-/* --- PANELS CONFIGURATION --- */
 .panel {
   box-sizing: border-box;
   height: 100%;
@@ -257,7 +252,6 @@ body {
   100% { transform: translate(-50%, -50%) translateY(-150px) scale(1) rotate(0deg); opacity: 0; }
 }
 
-/* --- RIGHT PANEL ELEMENTS (SHOP) --- */
 .store-header {
   padding: 24px;
   text-align: center;

@@ -128,17 +128,15 @@ export function App() {
   return (
     <div className="game-layout">
 
-      {/* --- SIDEBAR ADVERTISEMENT --- */}
+
       <div className="sidebar-ad">
         <a href="https://en.wikipedia.org/wiki/Internet_safety">
         <img src={Advertisement} alt="Advertisement" className="ad-banner" />
         </a>
       </div>
 
-      {/* --- WRAPPER FOR ORIGINAL GAMEPLAY PANELS --- */}
       <div className="main-gameplay">
         
-        {/* --- LEFT PANEL --- */}
         <div className="panel left-panel">
           <div className="cookie-bakery-heading">
             <h2>JAWBREAKER CLICKER</h2>
@@ -168,7 +166,6 @@ export function App() {
           <div className="bottom-spacing" />
         </div>
 
-        {/* --- MIDDLE PANEL --- */}
         <div className="panel middle-panel">
           <div className="news-ticker">
             <p className="news-title">📰 THE DAILY CRUNCH</p>
@@ -184,7 +181,6 @@ export function App() {
           </div>
         </div>
 
-        {/* --- RIGHT PANEL --- */}
         <div className="panel right-panel">
           <div className="store-header">
             <h3>🛒 SWEET SHOP</h3>
