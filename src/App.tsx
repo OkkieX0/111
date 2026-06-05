@@ -22,7 +22,6 @@ import JB_licked16 from './assets/JB stg.17.png';
 import Advertisement from './assets/yummy.png';
 
 // --- AUDIO ASSETS ---
-// Replace these with your actual audio files inside your assets folder
 import lickSfx from './assets/yippee-tbh.mp3';
 import buySfx from './assets/yippee-tbh.mp3';
 
@@ -34,7 +33,7 @@ const STAGES = [
 
 const LAYER_MILESTONES = [
   50, 100, 1000, 2000, 3000, 4000, 5000, 6000, 
-  7000, 8000, 9000, 10000, 100000, 200000, 300000, 4000000 
+  7000, 8000, 9000, 10000, 100000, 200000, 300000, 4000000
 ];
 
 type UpgradeType = 'tongue' | 'scraper' | 'grandma' | 'factory' | 'saliva' | 'quantum';
@@ -63,7 +62,7 @@ export function App() {
 
   const effectIdCounter = useRef(0);
 
-  // Persistent Audio element hooks using useRef (stops components from lagging or reloading sound files)
+  // Persistent browser Audio elements instantiated exactly once
   const lickAudio = useRef(new Audio(lickSfx));
   const buyAudio = useRef(new Audio(buySfx));
 
@@ -79,15 +78,15 @@ export function App() {
     return () => clearInterval(timer);
   }, [licksPerSecond]);
 
-  // Centralized safe sound playback engine
-  const triggerSound = (audioObj: HTMLAudioElement, volume: number = 0.6) => {
-    audioObj.currentTime = 0; // Instantly cuts off previous play for rapid clicking
+  // Audio Playback Manager 
+  const triggerSound = (audioObj: HTMLAudioElement, volume: number = 0.5) => {
+    audioObj.currentTime = 0; 
     audioObj.volume = volume;
-    audioObj.play().catch(err => console.warn("Audio skipped due to browser rules:", err));
+    audioObj.play().catch(err => console.warn("Browser blocked instant sound execution:", err));
   };
 
   const handleMainClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    triggerSound(lickAudio.current, 0.5); // Plays structural licking click sound
+    triggerSound(lickAudio.current, 0.5); // Triggers audio track immediately upon clicking the main item
 
     setCount(prev => prev + licksPerClick);
     setTotalLicks(prev => prev + licksPerClick);
@@ -109,7 +108,7 @@ export function App() {
     const cost = costs[type];
     if (count < cost) return;
 
-    triggerSound(buyAudio.current, 0.7); // Plays upgraded item purchase sound
+    triggerSound(buyAudio.current, 0.6); // Triggers shop-buying sound track immediately upon validation
 
     setCount(prev => prev - cost);
     setOwned(prev => ({ ...prev, [type]: prev[type] + 1 }));
@@ -134,7 +133,7 @@ export function App() {
   return (
     <div className="game-layout">
       <div className="sidebar-ad">
-        <a href="https://en.wikipedia.org/wiki/Internet_safety">
+        <a href="https://wikipedia.org">
           <img src={Advertisement} alt="Advertisement" className="ad-banner" />
         </a>
       </div>
@@ -166,9 +165,9 @@ export function App() {
               ))}
             </div>
           </div>
-          <div className="bottom-spacing" />
         </div>
 
+        {/* This panel matches your CSS configuration where .middle-panel is hidden */}
         <div className="panel middle-panel">
           <div className="news-ticker">
             <p className="news-title">📰 THE DAILY CRUNCH</p>
