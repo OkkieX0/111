@@ -126,15 +126,17 @@ export function App() {
      "💥 Critical mass achieved! The candy fabric is tearing apart!";
 
   return (
+
     <div className="game-layout">
-      {/* LEFT COLUMN PANEL */}
+
       <div className="panel left-panel">
         <div className="cookie-bakery-heading">
     <h2>JAWBREAKER CLICKER</h2>
-    <img src={Advertisement} alt="advertisement"/>
           <p className="subheading">Survive the sour center!</p>
         </div>
-        
+        <div className="advertisement">
+ <img src={Advertisement} alt="advertisement"/>
+    </div>
         <div className="counter-section">
          <p className="licks">{Math.floor(count).toLocaleString()} 👅</p>
           <p className="stats-per-sec">per second: <span className="per-second">{licksPerSecond.toLocaleString()}</span></p>
