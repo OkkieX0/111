@@ -19,7 +19,7 @@ import JB_licked13 from './assets/JB stg.14.png';
 import JB_licked14 from './assets/JB stg.15.png';
 import JB_licked15 from './assets/JB stg.16.png';
 import JB_licked16 from './assets/JB stg.17.png';
-import ADD from './assets/TOYOTA.png';
+import Advertisement from './assets/yummy.png';
 
 const STAGES = [
   JB1, JB_licked1, JB_licked2, JB_licked3, JB_licked4, JB_licked5,
@@ -129,7 +129,7 @@ export function App() {
     <div className="game-layout">
       {/* LEFT COLUMN PANEL */}
       <div className="panel left-panel">
-      <img src={ADD} alt="advertisement"/>
+      <img src={Advertisement} alt="advertisement"/>
         <div className="cookie-bakery-heading">
     <h2>JAWBREAKER CLICKER</h2>
           <p className="subheading">Survive the sour center!</p>
